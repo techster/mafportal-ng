@@ -1,0 +1,47 @@
+section.GamePage {
+  margin-bottom: 58px;
+  @include media-max(767) {
+    margin-bottom: 0;
+  }
+  .contWr {
+    h2 {
+      font-family: $YesevaOne;
+      font-size: 30px;
+      color: $red;
+      margin-bottom: 36px;
+      @include media-max(767) {
+        font-size: 22px;
+      }
+    }
+    a{
+      color: $red;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-right: 30px;
+      margin-bottom: 30px;
+      float: left;
+      object-fit: cover;
+      @include media-max(767) {
+        float: none;
+        width: 100%;
+      }
+    }
+    p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 26px;
+      margin-bottom: 30px;
+      strong {
+        font-size: 15px;
+        line-height: 26px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+
+
+

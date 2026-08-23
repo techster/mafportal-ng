@@ -1,0 +1,27 @@
+.env
+.idea/
+dbBackups/
+dbBackups/*.*
+/vendor/
+/node_modules/
+/bower_components/
+
+# Local runtime and generated application data
+/runtime/
+/storage/
+
+# Development-only tooling and validation
+/.dockerignore
+/.gitlab-ci.yml
+/Dockerfile
+/docker-compose.yaml
+/entrypoint.sh
+/gulpfile.js
+/bower.json
+/package.json
+/package-lock.json
+/phpunit.xml
+/setup-local.ps1
+/start-local.ps1
+/tests/
+

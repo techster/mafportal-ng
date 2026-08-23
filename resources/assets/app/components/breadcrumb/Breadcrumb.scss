@@ -1,0 +1,47 @@
+.Breadcrumb {
+  position: relative;
+  z-index: 1;
+  ul {
+    margin-top: 12px;
+    position: absolute;
+    overflow: hidden;
+    li {
+      &.act {
+        a {
+          text-decoration: underline;
+        }
+      }
+      &:last-child a:after {
+        content: '';
+      }
+      &:last-child a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+          cursor: default;
+        }
+      }
+      float: left;
+      a {
+        font-size: 12px;
+        color: #7e7e7e;
+        transition: .3s;
+        padding-right: 3px;
+        &:after {
+          content: '/';
+          margin-left: 3px;
+          display: inline-block;
+        }
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+      span {
+        font-size: 12px;
+        color: #7e7e7e;
+        transition: .3s;
+        padding-right: 3px;
+      }
+    }
+  }
+}

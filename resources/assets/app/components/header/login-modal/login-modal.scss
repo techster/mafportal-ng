@@ -1,0 +1,270 @@
+.formBox {
+  display: flex;
+  @include media-max(768) {
+    margin-top: 90px;
+  }
+  &.Forgot {
+    margin-top: 0;
+  }
+  .formWr {
+    border-right: 1px solid #979797;
+    width: 100%;
+    position: relative;
+    @include media-max(768) {
+      border: none;
+    }
+    .or {
+      position: absolute;
+      width: 21px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      top: 37%;
+      right: -21px;
+      transform: translate(-50%, -50%);
+      @include media-max(768) {
+        display: none;
+      }
+    }
+  }
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 30px;
+  }
+  .reg_div {
+    width: 100%;
+    @include media-max(768) {
+      width: 0;
+    }
+  }
+  .register {
+    width: 100%;
+    margin: 16% 0 0 30%;
+    display: block;
+    @include media-max(768) {
+      position: absolute;
+      top: 163px;
+      width: 87%;
+      padding-bottom: 40px;
+      text-align: center;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    @include media-max(465) {
+      top: 112px;
+    }
+    a {
+      border-radius: 100px;
+      background-color: $red;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      padding: 12px 35px;
+      user-select: none;
+      transform: translate(50%, -50%);
+      //transition: .3s;
+      @include media-max(768) {
+        position: initial;
+        transform: inherit;
+        background-color: $red;
+      }
+      &:hover {
+        background-color: $red;
+      }
+    }
+  }
+  .facebook_log {
+    width: 100%;
+    margin: 23% 0 0 -28.5%;
+    display: block;
+
+    @include media-max(768) {
+      position: absolute;
+      top: 100px;
+      width: 87%;
+      padding-bottom: 40px;
+      text-align: center;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    @include media-max(465) {
+      top: 47px;
+    }
+    div {
+
+      user-select: none;
+      transform: translate(50%, -50%);
+      //transition: .3s;
+      @include media-max(768) {
+        position: initial;
+        transform: inherit;
+      }
+    }
+  }
+  form {
+    .input-container {
+      &.corgot_con {
+        margin-right: 0;
+      }
+      position: relative;
+      margin-bottom: 30px;
+      margin-right: 80px;
+      @include media-max(768) {
+        margin-right: 58px;
+      }
+      @include media-max(768) {
+        margin-right: 0;
+      }
+      &.last {
+        margin-bottom: 5px;
+      }
+      input {
+        z-index: 1;
+        position: relative;
+        background: none;
+        width: 100%;
+        border: 0;
+        font-size: 16px;
+        color: #000;
+        margin: 12px 0 8px 0;
+        &:focus {
+          ~ label {
+            font-weight: normal;
+            color: #9d9d9d;
+            transform: translate(-12%, -50%) scale(0.75);
+          }
+          ~ .bar {
+            &:before,
+            &:after {
+              width: 50%;
+            }
+          }
+        }
+        &.ng-not-empty {
+          + label {
+            color: #9d9d9d;
+            transform: translate(-12%, -50%) scale(0.75);
+            font-weight: normal;
+          }
+        }
+      }
+      input {outline: none;}
+      input:-webkit-autofill {
+        -webkit-box-shadow: inset 0 0 0 50px #fff !important; /* Цвет фона */
+        //-webkit-text-fill-color: #999 !important; /* цвет текста */
+        //color: #999 !important; /* цвет текста */
+      }
+      label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        line-height: 44px;
+        transition: 0.2s ease;
+        font-size: 14px;
+        font-weight: bold;
+        color: #7e7e7e;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        background: #757575;
+        width: 100%;
+        height: 1px;
+        &::after {
+          right: 50%;
+        }
+        &::before {
+          left: 50%;
+        }
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          background: $red;
+          width: 0;
+          height: 2px;
+          transition: .2s ease;
+        }
+      }
+    }
+    .forgot {
+      margin-bottom: 25px;
+      a {
+        font-size: 12px;
+        color: #232323;
+        border-bottom: 1px dashed #b8b8b8;
+        transition: .3s;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+    .button-container {
+      display: block;
+      @include media-max(768) {
+        text-align: center;
+      }
+      .loginBtn {
+        display: inline-block;
+        user-select: none;
+        button {
+          border-radius: 100px;
+          padding: 12px 36px;
+          background-color: #000000;
+          font-size: 20px;
+          font-weight: bold;
+          color: #ffffff;
+          border: none;
+          transition: .3s;
+          &:hover {
+            background-color: $red;
+          }
+        }
+        button[disabled] {
+          opacity: .4;
+          background-color: #000;
+        }
+      }
+      .cancel {
+        display: inline-block;
+        user-select: none;
+        cursor: pointer;
+        margin-left: 47px;
+        @include media-max(768) {
+          display: none;
+        }
+        a {
+          color: $red;
+        }
+      }
+      .message_group {
+        margin-top: 15px;
+        margin-bottom: -15px;
+        span {
+          font-size: 14px;
+          &.red {
+            color: $red;
+          }
+          &.green {
+            color: #0b7b00;
+            text-shadow: 0 0 1px rgb(189, 253, 143);
+          }
+          &.wait {
+            color: #e69602;
+          }
+        }
+      }
+    }
+    .cust-cont {
+      display: block;
+    }
+  }
+}
+
+

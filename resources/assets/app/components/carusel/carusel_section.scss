@@ -1,0 +1,244 @@
+section.Carusel {
+  width: 100%;
+  position: relative;
+  margin-bottom: 85px;
+  .item_pic {
+    height: 450px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    @media screen and (max-device-width:768px) and (orientation:portrait) {
+      height: calc(100vh - 120px);
+    }
+    @media screen and (max-device-width:768px) and (orientation:landscape) {
+      height: 420px;
+    }
+  }
+  .titleWr {
+    width: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    padding: 0 20px;
+    @include media-max(1199) {
+      width: 800px;
+    }
+    @include media-max(991) {
+      width: 700px;
+    }
+    @include media-max(767) {
+      width: 600px;
+    }
+    @include media-max(650) {
+      width: 500px;
+    }
+    @include media-max(480) {
+      width: 400px;
+    }
+    @include media-max(400) {
+      width: 300px;
+    }
+    @include media-max(320) {
+      width: 250px;
+    }
+  }
+  .title {
+    background-color: rgba(0,0,0,0.79);
+    border-radius: 20px;
+    padding: 5px;
+    border: solid 2px #b22121;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.28);
+    color: #fff;
+    width: 100%;
+    flex: 0 1 auto;
+    font-size: 60px;
+    font-family: $YesevaOne;
+    margin-bottom: 15px;
+    @include media-max(1199) {
+      font-size: 50px;
+    }
+    @include media-max(991) {
+      font-size: 46px;
+    }
+    @include media-max(767) {
+      font-size: 46px;
+    }
+    @include media-max(480) {
+      font-size: 32px;
+    }
+    @include media-max(320) {
+      font-size: 24px;
+    }
+  }
+  .desc {
+    color: #fff;
+    width: 60%;
+    flex: 0 1 auto;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    @include media-max(1199) {
+      margin-bottom: 40px;
+      font-size: 17px;
+    }
+    @include media-max(768) {
+      font-size: 16px;
+    }
+    @include media-max(480) {
+      font-size: 16px;
+      width: 100%;
+    }
+    @include media-max(320) {
+      font-size: 14px;
+    }
+  }
+  .btnPost {
+    display: inline-block;
+    width: 242px;
+    border-radius: 40px;
+    background-color: rgba(0, 0, 0, 0.79);
+    border: solid 1px $red;
+    user-select: none;
+    @include media-max(768) {
+      width: 200px;
+    }
+    a {
+      width: 100%;
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 14px 0;
+      @include media-max(1199) {
+        font-size: 16px;
+      }
+      @include media-max(768) {
+        font-size: 14px;
+      }
+    }
+  }
+  li.ng-scope {
+    background-color: #7f7f7f;
+    border-color: #7f7f7f;
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.active {
+      width: 13px;
+      height: 13px;
+      background-color: #fff;
+    }
+  }
+  .carousel-indicators li {
+    width: 12px;
+    height: 12px;
+  }
+  .carousel-control.left {
+    background: none;
+  }
+  .carousel-control.right {
+    background: none;
+  }
+  a.left.carousel-control {
+    opacity: 1;
+  }
+  span.glyphicon.glyphicon-chevron-left {
+    width: 64px;
+    height: 64px;
+    margin-top: 60px;
+    font-size: 30px;
+    background-color: rgba(204, 204, 204, 0.17);
+    border-radius: 50%;
+    position: relative;
+    &:before {
+      content: 'Back';
+      color: #fff;
+      font-family: $YesevaOne;
+      font-size: 20px;
+      position: absolute;
+      left: -10px;
+      top: 15px;
+    }
+    &:after {
+      content: '';
+      background-image: url(../img/arrow_left.svg);
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 9px;
+      position: absolute;
+      left: -61px;
+      top: 40px;
+    }
+  }
+  a.right.carousel-control {
+    opacity: 1;
+  }
+  span.glyphicon.glyphicon-chevron-right {
+    width: 64px;
+    height: 64px;
+    margin-top: 60px;
+    font-size: 30px;
+    background-color: rgba(204, 204, 204, 0.17);
+    border-radius: 50%;
+    position: relative;
+    &:before {
+      content: 'Next';
+      color: #fff;
+      font-family: $YesevaOne;
+      font-size: 20px;
+      position: absolute;
+      right: -10px;
+      top: 15px;
+    }
+    &:after {
+      content: '';
+      background-image: url(../img/arrow_right.svg);
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 9px;
+      position: absolute;
+      right: -63px;
+      top: 40px;
+    }
+  }
+  a.right.carousel-control,
+  a.left.carousel-control {
+    @include media-max(767) {
+      display: none;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

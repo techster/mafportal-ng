@@ -1,0 +1,60 @@
+
+section.PartnersBox {
+  margin-bottom: 110px;
+  @include media-max(991) {
+    margin-bottom: 75px;
+  }
+  @include media-max(768) {
+    margin-bottom: 50px;
+  }
+  .partnersWr {
+    width: 100%;
+    overflow: hidden;
+    .title {
+      font-size: 30px;
+      color: $red;
+      font-family: $YesevaOne;
+      display: flex;
+      flex: 1 0 0;
+      margin-bottom: 40px;
+      &:after {
+        content: '';
+        height: 1px;
+        background-color: #000;
+        display: inline-block;
+        width: 100%;
+        flex: 1 0 0;
+        margin-left: 20px;
+        margin-top: 23px;
+      }
+    }
+    .partnersList {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      li {
+        padding-right: 70px;
+        margin-bottom: 15px;
+        @include media-max(991) {
+          flex-basis: 20%;
+        }
+        a {
+          text-align: center;
+          display: block;
+          img.elem {
+            max-height: 100px;
+            transition: all 0.5s;
+            &:hover {
+              transform: scale(0.9);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+

@@ -1,0 +1,30 @@
+.AboutClub {
+  margin-bottom: 50px;
+  @include media-max(767) {
+    margin-top: -86px;
+  }
+  @include media-max(480) {
+    margin-bottom: 20px;
+  }
+  .line {
+    width: 40%;
+    height: 1px;
+    background-color: #979797;
+  }
+  .title {
+    font-family: $YesevaOne;
+    font-size: 30px;
+    color: $red;
+  }
+  .cont {
+    p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 26px;
+      margin-bottom: 30px;
+    }
+    a {
+      color: $red;
+    }
+  }
+}

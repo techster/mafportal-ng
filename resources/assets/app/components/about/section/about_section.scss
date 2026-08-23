@@ -1,0 +1,97 @@
+section.AboutBox {
+  margin-bottom: 100px;
+  @include media-max(768) {
+    margin-bottom: 40px;
+  }
+  .aboutWr {
+    .title {
+      margin-bottom: 20px;
+      .title_name {
+        font-family: $YesevaOne;
+        font-size: 50px;
+        color: $red;
+        display: inline-block;
+        @include media-max(991) {
+          font-size: 42px;
+        }
+      }
+      .right_line {
+        margin-left: 25px;
+        &:before {
+          position: absolute;
+          left: 20px;
+          top: -2px;
+          content: '';
+          display: block;
+          height: 4px;
+          background-color: #000;
+          width: 100px;
+        }
+      }
+      .lineDef {
+        display: inline-block;
+        width: 238px;
+        height: 1px;
+        border: solid 1px #979797;
+        position: relative;
+        margin-bottom: 14px;
+      }
+    }
+    .contWr {
+      position: relative;
+      .image {
+        width: 515px;
+        height: auto;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          left: 15px;
+          bottom: 15px;
+          border: 1px solid $red;
+        }
+        @include media-max(991) {
+          width: 100%;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .desc {
+        background-color: #f2f2f3;
+        padding: 35px 28px 35px 40px;
+        width: 61%;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        @include media-max(1199) {
+          padding: 26px 32px;
+        }
+        @include media-max(991) {
+          padding: 40px 30px;
+          width: 100%;
+          position: inherit;
+          transform: inherit;
+        }
+        @include media-max(425) {
+          padding: 35px 25px;
+        }
+        p {
+          font-size: 15px;
+          font-weight: 300;
+          line-height: 1.73;
+        }
+      }
+    }
+  }
+}

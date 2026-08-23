@@ -1,0 +1,94 @@
+section.Shop {
+  //margin-bottom: 90px;
+  @include media-max(767) {
+    //margin-bottom: 65px;
+  }
+  .title {
+    //padding-bottom: 72px;
+    @include media-max(767) {
+      //padding-bottom: 40px;
+    }
+  }
+  .contWr {
+    .ProductList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      //margin-bottom: 90px;
+      @include media-max(767) {
+        //margin-bottom: 30px;
+      }
+      .item {
+        width: 32%;
+        padding: 26px;
+        border: solid 1px #e8e8e8;
+        transition: all 470ms cubic-bezier(0.34, 1.61, 0.7, 1);
+        margin-bottom: 25px;
+        &:hover {
+          transform: scale(1.03);
+          box-shadow: 0 17px 34px 0 rgba(56, 96, 122, 0.16);
+        }
+        @include media-max(991) {
+          width: 48%;
+        }
+        @include media-max(660) {
+          width: 100%;
+          padding: 15px;
+          margin-bottom: 15px;
+        }
+        .pic {
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+          width: 100%;
+          height: auto;
+          margin-bottom: 12px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .item_title {
+          font-family: $YesevaOne;
+          font-size: 20px;
+          color: $red;
+          margin-bottom: 10px;
+          &:hover {
+            transition: 0.3s;
+            text-decoration: underline;
+          }
+        }
+        .desc {
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 20px;
+          margin-bottom: 16px;
+        }
+        .btnWr {
+          display: flex;
+          justify-content:space-between;
+          align-items: center;
+          .cena {
+            font-size: 20px;
+            font-weight: bold;
+          }
+          .buy {
+            border-radius: 100px;
+            background-color: $red;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            padding: 10px 45px;
+            border:1px solid transparent;
+            transition: .3s;
+            @include media-max(1199) {
+              padding: 6px 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

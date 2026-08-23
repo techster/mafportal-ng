@@ -1,0 +1,106 @@
+section.EventBox {
+  //width: 100%;
+  overflow: hidden;
+  .owl-carousel .owl-wrapper-outer {
+    padding: 50px 0 0 70px;
+  }
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: $grey;
+  }
+  .eventWr {
+    .item {
+      width: 315px;
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: top;
+      padding: 1px;
+      border-left: 1px solid $grey;
+      padding-top: 40px;
+      &:before {
+        position: relative;
+        top: -46px;
+        left: -6px;
+        border-radius: 50%;;
+        content: '';
+        width: 11px;
+        height: 11px;
+        background-color: #7e7e7e;
+        display: block;
+      }
+      .date {
+        text-align: left;
+        position: relative;
+        top: -100px;
+        left: -55px;
+        font-size: 18px;
+        font-family: $YesevaOne;
+      }
+      .sub_item {
+        position: relative;
+        padding: 1px 28px 0 28px;
+        margin-bottom: 25px;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 9px;
+          left: -5px;
+          border: 1px solid $grey;
+          border-radius: 50%;
+          z-index: 1;
+          width: 7px;
+          height: 7px;
+          background-color: #fff;
+        }
+        &:after {
+          content: '';
+          width: 20px;
+          height: 1px;
+          background-color: #000;
+          display: block;
+          position: absolute;
+          top: 12px;
+          left: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .title {
+          display: block;
+          font-size: 14px;
+          font-weight: bold;
+          color: $red;
+          margin-bottom: 12px;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        .description {
+          font-size: 13px;
+          color: #000000;
+          margin-bottom: 8px;
+        }
+        .time {
+          font-size: 11px;
+          font-weight: bold;
+          color: #000000;
+          &:before {
+            content: '';
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-image: url(../img/clock.svg);
+            margin-right: 7px;
+            position: relative;
+            top: 3px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+

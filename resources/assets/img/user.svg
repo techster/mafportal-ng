@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="12px" height="11px" viewBox="0 0 12 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>user</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Club" transform="translate(-512.000000, -905.000000)" fill="#3C3C3C">
+            <g id="user" transform="translate(512.000000, 905.000000)">
+                <path d="M6.02649416,6.16601849 C7.79500231,6.16601849 9.22945891,4.78316335 9.22945891,3.07827344 C9.22945891,1.37338354 7.79500231,0 6.02649416,0 C4.25798602,0 2.82352941,1.38285515 2.82352941,3.07827344 C2.82352941,4.77369174 4.25798602,6.16601849 6.02649416,6.16601849 L6.02649416,6.16601849 Z" id="Shape"></path>
+                <path d="M11.5444282,10.468668 C11.7802293,10.468668 11.9669051,10.2887074 11.9669051,10.0613887 C11.9669051,7.93027635 10.1689218,6.1875 7.9484616,6.1875 L4.01844351,6.1875 C1.80780833,6.1875 0,7.92080474 0,10.0613887 C-1.30895897e-16,10.2887074 0.18667586,10.468668 0.422476946,10.468668 L11.5444282,10.468668 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+//a:focus {
+//  color: #fff;
+//  text-decoration: none;
+//}
+
+* {outline: none !important;}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  outline:none !important;
+  &:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  &:focus {
+    color: #fff;
+    text-decoration: none;
+    outline:none !important;
+  }
+  &:active {
+    outline:none !important;
+  }
+}
+

@@ -1,0 +1,312 @@
+section.ReviewBox {
+  margin-bottom: 115px;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  display: block;
+  z-index: -1;
+  overflow: hidden;
+  height: 575px;
+  @include media-max(1199) {
+    height: auto;
+  }
+  @include media-max(768) {
+    height: auto;
+    margin-bottom: 60px;
+  }
+  .reviewWr {
+    text-align: center;
+    .title {
+      margin-top: 65px;
+      margin-bottom: 40px;
+      @include media-max(991) {
+        margin-top: 60px;
+        margin-bottom: 60px;
+      }
+      .title_name {
+        font-size: 48px;
+        color: #ffffff;
+        font-family: $YesevaOne;
+        display: inline-block;
+        @include media-max(991) {
+          font-size: 42px;
+        }
+        @include media-max(768) {
+          font-size: 38px;
+        }
+      }
+      .lineDef {
+        display: inline-block;
+        width: 238px;
+        height: 1px;
+        border: solid 1px #fff;
+        position: relative;
+        margin-bottom: 12px;
+        @include media-max(991) {
+          width: 185px;
+        }
+      }
+      .left_line {
+        margin-right: 25px;
+        &:before {
+          position: absolute;
+          right: 20px;
+          top: -2px;
+          content: '';
+          display: block;
+          height: 4px;
+          background-color: #fff;
+          width: 100px;
+        }
+        @include media-max(768) {
+          display: none;
+        }
+      }
+      .right_line {
+        margin-left: 25px;
+        &:before {
+          position: absolute;
+          left: 20px;
+          top: -2px;
+          content: '';
+          display: block;
+          height: 4px;
+          background-color: #fff;
+          width: 100px;
+        }
+        @include media-max(768) {
+          display: none;
+        }
+      }
+    }
+  }
+  .revieList {
+    margin-bottom: 60px;
+    @include media-max(1199) {
+      margin-bottom: 85px;
+    }
+  }
+  .itemRevie {
+    text-align: left;
+    display: flex;
+    @include media-max(991) {
+      text-align: center;
+      display: block;
+    }
+    .personWr {
+      flex: 1 0 0;
+      display: inline-block;
+      margin-right: 40px;
+      @include media-max(991) {
+        flex: 1 0 0;
+        display: inline-block;
+        margin-right: 0;
+      }
+      .person {
+        width: 156px;
+        height: 156px;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        border-radius:50%;
+        border: 1px solid #464646;
+      }
+    }
+    .content {
+      flex: 10 0 0;
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 22px;
+      margin-bottom: 25px;
+      min-height: 260px;
+      .title_item {
+        font-family: $YesevaOne;
+        color: #ffffff;
+        margin-bottom: 27px;
+        @include media-max(425) {
+          font-size: 24px;
+        }
+      }
+      .textWr {
+        display: flex;
+        @include media-max(991) {
+          display: block;
+          padding: 0 45px;
+        }
+        @include media-max(425) {
+          padding: 0 5px;
+        }
+        .line {
+          border-top: 1px solid #fff;
+          flex: 1 0 0;
+          margin-right: 25px;
+          margin-top: 10px;
+          @include media-max(991) {
+            margin: 0 auto;
+            width: 170px;
+            padding-bottom: 12px;
+          }
+        }
+        .review {
+          flex: 10 0 0;
+          @include media-max(991) {
+            text-align: left;
+          }
+          p {
+            font-size: 15px;
+            font-weight: 100;
+            line-height: 1.73;
+            color: #ffffff;
+            margin-bottom: 30px;
+            @include media-max(991) {
+              font-size: 14px;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .carousel-control.left,
+  .carousel-control.right {
+    background: none;
+  }
+  li.ng-scope {
+    margin-right: 8px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  ol.carousel-indicators {
+    bottom: -25px;
+    width: 90%;
+    margin-bottom: 0;
+    @include media-max(1199) {
+      width: auto;
+      margin: 0;
+      margin-left: 16%;
+    }
+    @include media-max(991) {
+      margin-left: -22px;
+    }
+  }
+  .carousel-control {
+    top: inherit;
+    width: 20%;
+    z-index: 999;
+    @include media-max(991) {
+
+    }
+    &.left {
+      left: 15.5%;
+      opacity: 1;
+      @include media-max(1199) {
+        left: 21%;
+      }
+      @include media-max(991) {
+        left: -7%;
+        width: 27%;
+      }
+    }
+    &.right {
+      right: -12%;
+      opacity: 1;
+      @include media-max(991) {
+        right: -3%;
+      }
+    }
+  }
+  .glyphicon-chevron-left {
+    &:before {
+      content: "Previous review";
+      font-family: $YesevaOne;
+      font-size: 20px;
+      color: #ffffff;
+    }
+    &:after {
+      content: '';
+      background-image: url(../img/arrow_left.svg);
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 9px;
+      position: absolute;
+      left: 22px;
+      top: 38px;
+      @include media-max(1199) {
+        left: 3px;
+      }
+    }
+  }
+  .glyphicon-chevron-right {
+    &:before {
+      content: "Next review";
+      font-family: $YesevaOne;
+      font-size: 20px;
+      color: #ffffff;
+
+    }
+    &:after {
+      content: '';
+      background-image: url(../img/arrow_right.svg);
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 9px;
+      position: absolute;
+      right: 45px;
+      top: 38px;
+      @include media-max(991) {
+        right: 0;
+      }
+    }
+  }
+  span.glyphicon.glyphicon-chevron-left {
+    width: 100%;
+  }
+  span.glyphicon.glyphicon-chevron-right {
+    width: 100%;
+  }
+  //ol.carousel-indicators,
+  a.right.carousel-control,
+  a.left.carousel-control {
+    @include media-max(767) {
+      display: none;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

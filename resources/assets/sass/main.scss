@@ -1,0 +1,55 @@
+//===============[ IMPORT PLUGINS ]=====================
+
+@import  "plugins/bootstrap";
+@import  "plugins/lightgallery";
+@import  "plugins/ngDialog-theme-default";
+@import  "plugins/ngDialog";
+
+//===============[ IMPORT STYLES ]======================
+
+@import "partials/_spacings";
+@import "partials/_colors";
+@import "partials/_fonts";
+@import "partials/_mixin";
+@import "partials/_fontSizess";
+@import "partials/_buttons";
+@import "partials/_links";
+@import "partials/_helpers";
+@import "partials/_sprite";
+
+//============[ IMPORT COMPONENT STYLE ]================
+
+@import "partials/_default";
+
+//============[ IMPORT MODULE STYLES ]==================
+@import "resources/assets/app/components/breadcrumb/Breadcrumb";
+@import "resources/assets/app/components/clubs/clubs_nav/clubs_nav";
+@import "resources/assets/app/components/clubs/about_club/about_club";
+@import "resources/assets/app/components/pagination/pagination";
+@import "resources/assets/app/components/title/title";
+@import "resources/assets/app/components/news/news-list/news-list";
+@import "resources/assets/app/components/header/lang/lang";
+@import "resources/assets/app/components/gallery/single/single_photo";
+@import "resources/assets/app/components/account/account";
+@import "resources/assets/app/components/header/header";
+@import "resources/assets/app/components/header/mob-menu/mob-menu";
+@import "resources/assets/app/components/header/login-modal/login-modal";
+@import "resources/assets/app/components/modal/modal";
+@import "resources/assets/app/components/shop/shop-modal/shop-modal";
+@import "resources/assets/app/components/carusel/carusel_section";
+@import "resources/assets/app/components/event/section/event_section";
+@import "resources/assets/app/components/review/section/review_section";
+@import "resources/assets/app/components/about/section/about_section";
+@import "resources/assets/app/components/partners/section/partners_section";
+@import "resources/assets/app/components/footer/footer";
+@import "resources/assets/app/components/clubs/archive/clubs_archive";
+@import "resources/assets/app/components/clubs/clubs_rating/clubs_rating";
+@import "resources/assets/app/components/page/page";
+@import "resources/assets/app/components/news/single/news_single";
+@import "resources/assets/app/components/tournaments/archive/tournaments_archive";
+@import "resources/assets/app/components/shop/archive/shop_archive";
+@import "resources/assets/app/components/gallery/archive/gallery_archive";
+@import "resources/assets/app/components/contact/single/contact_single";
+@import "resources/assets/app/components/registration/registration";
+@import "resources/assets/app/components/no_access/no_access";
+@import "resources/assets/app/components/cart/cart";

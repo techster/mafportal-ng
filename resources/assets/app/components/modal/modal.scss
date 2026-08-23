@@ -1,0 +1,145 @@
+section.ModalBox {
+  .modal {
+    display: block;
+    width: auto;
+    min-width: 315px;
+    max-width: 830px;
+    max-height: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    bottom: inherit;
+    transform: translate(0, -50%);
+    background: white;
+    box-shadow: 0 0 60px 10px rgba(0,0,0,0.4);
+    padding: 125px 50px 50px;
+    margin: 0 auto;
+    @include media-max(860) {
+      width: 97%;
+    }
+    @include media-max(768) {
+      height: auto;
+    }
+    @include media-max(465) {
+      padding: 75px 35px 50px;
+    }
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 111;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .modal-guts {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border: 1px solid #000;
+      z-index: -1;
+    }
+    .title {
+      border-bottom: 1px solid #000;
+      height: 80px;
+      position: absolute;
+      text-transform: uppercase;
+      font-family: $YesevaOne;
+      font-size: 20px;
+      color: $red;
+      left: 15px;
+      right: 15px;
+      top: 15px;
+      @include media-max(768) {
+        height: 60px;
+      }
+      @include media-max(465) {
+        border: none;
+      }
+
+      .close_button {
+        display: block;
+        width: 80px;
+        height: 100%;
+        border-left: 1px solid #000;
+        z-index: 1;
+        position: relative;
+        float: right;
+        cursor: pointer;
+        @include media-max(768) {
+          width: 60px;
+        }
+        @include media-max(465) {
+          border-left: none;
+        }
+      }
+      p {
+        left: 35px;
+        top: 50%;
+        transform: translate(0, -50%);
+        position: absolute;
+        @include media-max(768) {
+          left: 25px;
+        }
+        @include media-max(465) {
+          display: none;
+        }
+      }
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-image: url(../img/close.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(-29px, -50%);
+        @include media-max(768) {
+          right: -9px;
+        }
+        @include media-max(465) {
+          top: 29px;
+        }
+        @include media-max(340) {
+          top: 19px;
+          right: -19px;
+        }
+      }
+    }
+  }
+  .wrapMadal {
+    //padding: 45px;
+    //@include media-max(670) {
+    //  padding: 25px;
+    //}
+    //@include media-max(465) {
+    //  padding: 45px 25px 25px 25px;
+    //}
+  }
+  .ForgotWr {
+    text-align: center;
+    width: 100%;
+  }
+  .help-block {
+    position: absolute;
+    font-size: 12px;
+    width: 100%;
+    color: $red;
+    text-align: left;
+  }
+}
+// FIX
+.ngdialog-content {
+  background: transparent;
+}
+.ngdialog-overlay {
+  background: rgba(0,0,0,0.7);
+}
+

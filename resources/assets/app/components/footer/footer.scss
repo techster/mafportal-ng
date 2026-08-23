@@ -1,0 +1,206 @@
+.langWr {
+  .flagImg {
+    width: 40px;
+  }
+}
+footer.footer {
+  background-color: #000;
+  color: #fff;
+  .menuWr {
+    padding: 25px 0 12px 0;
+    @include media-max(767) {
+      padding: 0;
+    }
+    .logo {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include media-max(991) {
+        justify-content: initial;
+      }
+      img {
+        width: 53px;
+        height: 46px;
+        @include media-max(1199) {
+          width: 47px;
+          height: 40px;
+        }
+      }
+      .logoName {
+        font-size: 24px;
+        color: #ffffff;
+        font-family: $YesevaOne;
+        margin-right: -3px;
+        @include media-max(1199) {
+          font-size: 19px;
+          margin-right: -8px;
+        }
+        @include media-max(991) {
+          margin-left: 10px;
+        }
+      }
+    }
+    .footerMenu {
+      height: 46px;
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+      @include media-max(1199) {
+        padding-left: 0px;
+      }
+      @include media-max(991) {
+        padding-left: 0;
+      }
+      ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include media-max(911) {
+          height: 80px;
+        }
+        li {
+          font-size: 13px;
+          font-weight: bold;
+          text-transform: uppercase;
+          a {
+            transition: .3s;
+            &:hover {
+              color: $red_hover;
+            }
+          }
+        }
+      }
+    }
+    .email {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      strong {
+        font-size: 14px;
+        line-height: 1.79;
+      }
+      a {
+        font-weight: 100;
+        opacity: .8;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .langWrfooter {
+    .flagImg {
+      padding-top: 6px;
+      width: 40px;
+    }
+  }
+  .contactsWr {
+    padding-top: 5px;
+    .telephone {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 37px;
+      @include media-max(1199) {
+        font-size: 11px;
+      }
+      @include media-max(991) {
+        font-size: 12px;
+      }
+      @include media-max(767) {
+        display: none;
+      }
+      p {
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 10px;
+        @include media-max(991) {
+          display: none;
+        }
+      }
+      ul {
+        display: inline-block;
+        li {
+          margin-right: 10px;
+          display: inline-block;
+          strong {
+            text-transform: uppercase;
+            margin-right: 5px;
+          }
+          span {
+            opacity: .8;
+          }
+        }
+      }
+    }
+    .socialIcon {
+      margin-bottom: 10px;
+      ul {
+        display: flex;
+        justify-content: flex-end;
+        li {
+          margin-left: 12px;
+          a {
+            border: 1px solid #fff;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            &:hover {
+              background-color: #fff;
+              color: #000;
+            }
+            i {
+            }
+          }
+        }
+      }
+    }
+    .line {
+      border: solid 1px $red;
+      @include media-max(767) {
+        display: none;
+      }
+    }
+  }
+  .copyrightWr {
+    padding: 10px 0;
+    @include media-max(425) {
+      padding: 2px 0;
+    }
+    p {
+      opacity: .8;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 2;
+      &.mobile {
+        display: none;
+      }
+      @include media-max(1199) {
+        font-size: 11px;
+      }
+      @include media-max(991) {
+        font-size: 9px;
+      }
+      @include media-max(425) {
+        font-size: 12px;
+        line-height: 28px;
+        text-align: center;
+        &.desktop {
+          display: none;
+        }
+        &.mobile {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+

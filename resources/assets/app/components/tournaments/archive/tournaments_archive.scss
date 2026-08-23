@@ -1,0 +1,187 @@
+section.TournamentsPage {
+  //margin-bottom: 82px;
+  @include media-max(767) {
+    //margin-bottom: 50px;
+  }
+  .title {
+    padding-bottom: 40px;
+    text-align: center;
+    padding-top: 120px;
+    line-height: normal;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    @include media-max(991) {
+      padding-top: 70px;
+    }
+    .title_name {
+      font-size: 48px;
+      font-family: $YesevaOne;
+      display: inline-block;
+      @include media-max(767) {
+        font-size: 30px;
+      }
+    }
+    .lineDef {
+      width: 140px;
+      @include media-max(1199) {
+        display: none;
+      }
+      display: inline-block;
+      height: 1px;
+      border: solid 1px #979797;
+      position: relative;
+      margin-bottom: 10px;
+      @include media-max(991) {
+        width: 220px;
+      }
+    }
+    .left_line {
+      margin-right: 25px;
+      &:before {
+        position: absolute;
+        right: 20px;
+        top: -2px;
+        content: '';
+        display: block;
+        height: 4px;
+        background-color: #000;
+        width: 100px;
+      }
+      @include media-max(768) {
+        display: none;
+      }
+    }
+    .right_line {
+      margin-left: 25px;
+      &:before {
+        position: absolute;
+        left: 20px;
+        top: -2px;
+        content: '';
+        display: block;
+        height: 4px;
+        background-color: #000;
+        width: 100px;
+      }
+      @include media-max(768) {
+        display: none;
+      }
+    }
+  }
+  .switchWr {
+    display: block;
+    text-align: center;
+    margin-bottom: 54px;
+    a {
+      display: inline-block;
+      border-radius: 40px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 34px 0 rgba(56, 96, 122, 0.16);
+      font-size: 20px;
+      text-align: center;
+      color: #000000;
+      padding: 19px 30px;
+      margin-right: 40px;
+      @include media-max(600) {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 14px 30px;
+        margin-right: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &.act {
+        color: $red;
+        box-shadow: 0 2px 2px 2px rgba(56, 96, 122, 0.16);
+        border: solid 0 #000000;
+      }
+    }
+  }
+  .contWr {
+    margin-bottom: 60px;
+    @include media-max(600) {
+      margin-bottom: 20px;
+    }
+    .TournamentList {
+      .item {
+        padding: 36px 0;
+        border-top: 1px solid #979797;
+        display: flex;
+        @include media-max(991) {
+          display: block;
+        }
+        @include media-max(767) {
+          border: none;
+          padding-top: 0;
+        }
+        .pic {
+          flex: 1;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          width: 100%;
+          height: 100%;
+          margin-right: 56px;
+          @include media-max(1199) {
+            margin-right: 30px;
+          }
+          @include media-max(991) {
+            margin-bottom: 30px;
+          }
+          @include media-max(991) {
+            margin-bottom: 15px;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .info {
+          flex: 2;
+          .ListTitle {
+            font-family: $YesevaOne;
+            font-size: 30px;
+            color: $red;
+            @include media-max(767) {
+              padding-bottom: 15px;
+              font-size: 24px;
+            }
+          }
+          .descWr {
+            display: flex;
+            @include media-max(767) {
+              display: block;
+            }
+            .date {
+              flex: 1;
+              min-width: 100px;
+              font-size: 13px;
+              font-weight: bold;
+              border-top: 1px solid #000;
+              padding-top: 15px;
+              margin-top: 8px;
+              margin-right: 45px;
+              @include media-max(1199) {
+                margin-right: 30px;
+              }
+              @include media-max(767) {
+                margin-bottom: 15px;
+              }
+            }
+            .desc {
+              flex: 8;
+              font-size: 15px;
+              font-weight: 300;
+              line-height: 26px;
+              @include media-max(1199) {
+                flex: 6;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
