@@ -9,6 +9,7 @@ dbBackups/*.*
 # Local runtime and generated application data
 /runtime/
 /storage/
+/public/uploads/
 
 # Development-only tooling and validation
 /.dockerignore
