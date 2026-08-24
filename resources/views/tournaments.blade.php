@@ -18,9 +18,6 @@
     'tournament' => $tournaments,
 ])
 
-{{ $tournaments->links('pagination/pagination') }}
-
-
 {{-----------------[ FOOTER ]-----------------}}
 @include('footer/footer')
 @include('foot/foot')

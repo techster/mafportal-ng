@@ -1,4 +1,4 @@
-<input type="hidden" value="{{isset($rating_data)?$rating_data:''}}" id="data">
+<input type="hidden" value="{{isset($rating_data)?$rating_data:''}}" id="schedule-data">
 
 <div class="Tab RatingCL m-b-100" ng-controller="ratingCtrl" ng-cloak>
     <div class="container">

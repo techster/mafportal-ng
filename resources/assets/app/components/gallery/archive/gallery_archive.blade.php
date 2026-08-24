@@ -2,26 +2,33 @@
 $class = isset($class) ? $class : ['m-t-40'];
 $PhotoGalleries = isset($PhotoGalleries) ? $PhotoGalleries : "";
 $VideoGalleries = isset($VideoGalleries) ? $VideoGalleries : "";
+$photo_only = isset($photo_only) ? $photo_only : false;
+$video_only = isset($video_only) ? $video_only : false;
+$video_id = 'gallery-video-content';
+$photo_only = isset($photo_only) ? $photo_only : false;
+$video_only = isset($video_only) ? $video_only : false;
 ?>
 
 <section class="Gallery @foreach($class as $key) {{$key}} @endforeach" ng-controller="gallery_archiveCtrl" ng-cloak>
     <div class="container">
         <!--[ BTN ]-->
+        @if(!$photo_only && !$video_only)
         <div class="btnWr">
             <a ng-class="{'act': visible}" href="" ng-click="photo()">{{trans('clubs.photo')}}</a>
             <a ng-class="{'act': !visible}" href="" ng-click="video()">{{trans('clubs.video')}}</a>
         </div>
+        @endif
         <!--[ LINE ]-->
         <div class="lineWr">
             <div class="line">
-                <span ng-show="visible">{{trans('clubs.photo_albums')}}</span>
-                <span ng-hide="visible">{{trans('clubs.video_albums')}}</span>
+                @if(!$video_only)<span ng-show="visible">{{trans('clubs.photo_albums')}}</span>@endif
+                @if(!$photo_only)<span ng-hide="visible">{{trans('clubs.video_albums')}}</span>@endif
             </div>
         </div>
         <!--[ CONTENT ]-->
         <div class="GalleryList">
             <!--[ PHOTO ]-->
-            <div class="mediaList" ng-show="visible">
+            <div class="mediaList" @if(!$video_only)ng-show="visible"@endif>
                 <div class="row">
                     @if($PhotoGalleries && count($PhotoGalleries))
                         @foreach($PhotoGalleries as $key => $gallery)
@@ -50,8 +57,8 @@ $VideoGalleries = isset($VideoGalleries) ? $VideoGalleries : "";
                 </div>
             </div>
             <!--[ VIDEO ]-->
-            <div class="mediaList" ng-hide="visible">
-                <div id="video" class="row">
+            <div class="mediaList" @if(!$photo_only && !$video_only)ng-hide="visible"@endif>
+                <div id="{{$video_id}}" class="row">
                     @if ($VideoGalleries && count($VideoGalleries))
                         @foreach($VideoGalleries as $key => $gallery)
                             <a href="https://www.youtube.com/watch?v={{$gallery->id_youtube}}"

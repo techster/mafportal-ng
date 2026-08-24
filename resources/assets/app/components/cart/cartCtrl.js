@@ -47,12 +47,6 @@ app.controller("rating3Ctrl", ["$scope", "$http", function( $scope, $http ){
         }, 0);
     };
 
-    //redirect to login
-    $('#redirect_login').click(function () {
-        window.location.replace('/'+loc+"/register");
-    });
-
-
     //Email validation
     $scope.eml_add = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 

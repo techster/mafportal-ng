@@ -1,4 +1,4 @@
-section.SinleNewsPage {
+section.SinleNewsPage, .TournamentPagination {
   margin-bottom: 70px;
   @include media-max(767) {
     margin-bottom: 20px;
@@ -214,6 +214,10 @@ section.SinleNewsPage {
       }
     }
   }
+}
+
+.TournamentPagination {
+  padding-top: 20px;
 }
 
 

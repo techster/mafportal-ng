@@ -28,7 +28,7 @@ class TournamentController extends Controller
 //            return Tournament::orderBy('id', 'desc')->paginate(10);
 //        });
 
-        $tournaments = Tournament::orderBy('created_at', 'asc')->paginate(25);
+        $tournaments = Tournament::orderBy('created_at', 'asc')->get();
         return view('tournaments', ['tournaments' => $tournaments]);
 
     }
@@ -36,7 +36,81 @@ class TournamentController extends Controller
     // Одиночная клуба
     public function show($slug)
     {
-        return redirect()->route('tournaments_about', $slug);
+        $tournament = Tournament::findBySlug($slug);
+        if(!$tournament) abort(404);
+
+        $next_tournament = Tournament::orderBy("created_at", 'asc')->where('created_at', '>', $tournament->created_at)->first();
+        $prev_tournament = Tournament::orderBy("created_at", 'desc')->where('created_at', '<', $tournament->created_at)->first();
+        $meta_title = $tournament->meta_title;
+        $meta_title_ru = $tournament->meta_title_ru;
+        $meta_description_ru = $tournament->meta_description_ru;
+        $meta_description = $tournament->meta_description;
+
+        $photoGalleries = Photo_gallery::where('tournament_id', '=', $tournament->id)->orderBy('id', 'desc')->paginate(99);
+        $videoGalleries = Video_gallery::where('tournament_id', '=', $tournament->id)->orderBy('id', 'desc')->paginate(99);
+
+        return view('tournaments-single', [
+            'tournament' => $tournament,
+            'next_tournament' => $next_tournament,
+            'prev_tournament' => $prev_tournament,
+            'rating_data' => json_encode($this->buildRatingData($tournament)),
+            'schedule_data' => json_encode($this->buildScheduleData($tournament)),
+            'PhotoGalleries' => $photoGalleries,
+            'VideoGalleries' => $videoGalleries,
+            'meta_title' => isset($meta_title) ? (App::getLocale() == 'ru' ? $meta_title_ru : $meta_title) : null,
+            'meta_description' => isset($meta_description) ? (App::getLocale() == 'ru' ? $meta_description_ru : $meta_description) : null,
+            'meta_keywords' => null,
+            'social_meta_title' => isset($meta_title) ? (App::getLocale() == 'ru' ? $meta_title_ru : $meta_title) : null,
+            'social_meta_description' => isset($meta_description) ? (App::getLocale() == 'ru' ? $meta_description_ru : $meta_description) : null,
+        ]);
+    }
+
+    private function buildRatingData($tournament)
+    {
+        $rating_data = array();
+        if($tournament->table_ratings and count($tournament->game_ratings)) {
+            $count = $this->count_points($tournament);
+            foreach($count["total"] as $key => $user){
+                $pn = Helpers::getPrimaNota($key, null, null, 'tournament', $tournament->id);
+                $player = User::find($key);
+                $club = $player->clubs->toArray();
+                $avatar = $this->resolveAvatar($player->avatar);
+                $rating_data['users'][] = array(
+                    'Player' => $player->name.' '.$player->last_name,
+                    'Nickname' => $player->nickname,
+                    'Avatar' => $avatar,
+                    'AvatarFallback' => $avatar === '/images/avatar-silhouette.svg',
+                    'Main_Club' => isset($club[0]) && !empty($club[0]) ? $club[0]['title'] : '',
+                    'Played_Game' => $user['Don_Win'], 'Game' => $user['Game'], 'Win' => $user['Win'],
+                    'Clean_Win' => $user['Clean_Win'], 'WR' => $user['WR'], 'WB' => $user['WB'], 'Fail' => $user['Fail'],
+                    'Citizen' => $user['Citizen'], 'Mafia' => $user['Mafia'], 'Sheriff' => $user['Sheriff'],
+                    'Sheriff_Win' => $user['Sheriff_Win'], 'Don' => $user['Don'], 'Don_Win' => $user['Don_Win'],
+                    'BM' => $user['BM'], 'BP' => $user['BP'], 'PN' => $pn,
+                    'Balls' => round($user['Balls'], 3), 'Score' => round($user['Score'], 3),
+                );
+            }
+        }
+        return $rating_data;
+    }
+
+    private function buildScheduleData($tournament)
+    {
+        $rating_data = array();
+        $roles = array("0" => "", "1" => "Citizen", "2" => "Sheriff", "3" => "Mafia", "4" => "Don");
+        $count = $this->count_points($tournament);
+        if(isset($count["by_game"])) {
+            foreach ($count["by_game"] as $key => $game) {
+                foreach ($game as $key2 => $user) {
+                    $player = User::find($key2);
+                    $rating_data[$key][] = array(
+                        'Player' => $player->name.' '.$player->last_name.($player->nickname ? ' ('.$player->nickname.')' : ''),
+                        'Role' => $roles[$user["role"]], 'Result' => $user["role"] ? $user["result"] : '',
+                        'Points' => $user["role"] ? $user["points"] : '', 'Add_Points' => $user["role"] ? $user["penalty"] : '',
+                    );
+                }
+            }
+        }
+        return $rating_data;
     }
 
     // О турнире

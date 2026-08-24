@@ -9,6 +9,8 @@ return [
     'players'    => 'Players',
 	'coming_soon' => 'Coming Soon',
 	'past' => 'Past',
+    'year' => 'Year',
+    'all_years' => 'All years',
     'live' => 'Video',
     'no_live' => 'Video stream is unavailable'
 ];

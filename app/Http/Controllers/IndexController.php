@@ -9,13 +9,10 @@ use App\Models\Testimonial;
 use App\Models\Event;
 use App\Models\Tournament;
 use App\Models\Contact;
-use App\Notifications\EmailVerification;
 use App\Notifications\ContactNotification;
 use Backpack\PageManager\app\Models\Page;
 use Carbon\Carbon;
-use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -51,32 +48,6 @@ class IndexController extends Controller
             'partners' => $partners,
             'events' => $events,
         ]);
-    }
-
-    public function send_confirm_email()
-    {
-        Auth::user()->notify(new EmailVerification(Auth::user()));
-        return back();
-    }
-
-    public function check_email(Request $request) {
-
-        $email = $request->email;
-        $check = User::where('email', '=', $email)->get();
-
-        if (count($check) > 0) {
-            return 'false';
-        }
-            else {
-                return 'true';
-            }
-
-    }
-
-    public function verify($token)
-    {
-        User::where('email_token', $token)->firstOrFail()->verified();
-        return redirect('account');
     }
 
     public function contact(Request $request)

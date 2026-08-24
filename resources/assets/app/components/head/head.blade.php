@@ -40,6 +40,9 @@ $social_meta_description = (isset($social_meta_description) ? $social_meta_descr
     <meta name="theme-color" content="#000000">
     <!--CSS-->
     <link rel="stylesheet" href="{{ asset('/build/css/main.css') }}?ver=3">
+    <link rel="stylesheet" href="{{ asset('/build/css/tournament-pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('/build/css/tournament-filters.css') }}">
+    <link rel="stylesheet" href="{{ asset('/build/css/header-branding.css') }}">
     <link rel="stylesheet" href="{{ asset('/build/css/croppie.css') }}">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
@@ -77,107 +80,9 @@ $social_meta_description = (isset($social_meta_description) ? $social_meta_descr
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<script>
-    function continueInFb() {
-        FB.login(function (response) {
-            if (response.status === 'connected') {
-                FB.api('/me?fields=name,email,picture.width(200).height(200)', function (response) {
-                    $(document).ready(function () {
-                        var names = response.name;
-                        var stringArray = names.split(" ");
-                        var user_name = $('#name');
-                        var user_last_name = $('#last_name');
-                        var email = $('#changeEmail');
-                        var avatar = $('#avatar');
-                        var user_check = $('#check');
-                        user_name.val(stringArray[0]);
-                        user_name.trigger('input');
-                        user_name.trigger('change');
-                        user_last_name.val(stringArray[1]);
-                        user_last_name.trigger('input');
-                        user_last_name.trigger('change');
-                        email.val(response.email);
-                        email.trigger('input');
-                        email.trigger('change');
-                        avatar.val(response.picture.data.url);
-                        avatar.trigger('input');
-                        avatar.trigger('change');
-                        user_check.val('facebook');
-                        user_check.trigger('input');
-                        user_check.trigger('change');
-                    });
-                });
-            }
-        }, {scope: 'public_profile,email'});
-    }
-
-    function logInFb() {
-        FB.login(function (response) {
-            if (response.status == 'connected') {
-                FB.api('/me?fields=name,email,picture.width(200).height(200)', function (response) {
-                    var loc = "{{ Config::get('app.locale') }}";
-                    $.ajax({
-                        type: 'POST',
-                        url: '/' + loc + '/auth/facebook/callback',
-                        data: {
-                            name    : response.name,
-                            email: response.email,
-                            picture: response.picture.data.url,
-                            _token: "{{ csrf_token() }}"
-                        },
-
-                        success: function (success) {
-                            if (success == 'ok-log') {
-                                window.location = '/';
-                            } else if (success == 'reg') {
-                                window.location = '/register';
-                            }
-                        }
-                    });
-                });
-            }
-        }, {scope: 'public_profile,email'});
-    }
-
-
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '468218894029266',
-            cookie: true,
-            xfbml: true,
-            version: 'v3.0'
-        });
-    };
-
-
-    var local = '{{Config::get('app.locale')}}';
-    var loc = 'en_US';
-    if (local === 'ru') {
-        loc = 'ru_RU';
-    }
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/" + loc + "/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <p style="display: none;" id="global_loc">{{ Config::get('app.locale') }}</p>
-<p style="display: none;" id="global_plswait">{{ trans('auth.please_wait') }}</p>
 
 
-<?php
-    if (Auth::check()) {
-		    Cart::restore(Auth::user()->id);
-		    Cart::store(Auth::user()->id);
-	    }
-?>
 <!--[if lt IE 8]>
 <p class="browserupgrade">Your browser is <strong>outdated</strong>. Please update it at <a
         href="http://browsehappy.com/">browsehappy.com</a></p>

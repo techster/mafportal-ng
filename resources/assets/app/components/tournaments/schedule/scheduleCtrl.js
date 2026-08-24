@@ -1,7 +1,7 @@
 app.controller("ratingCtrl", ["$scope", "$http", function( $scope, $http ){
     "use strict";
 
-    const data = document.getElementById("data").value;
+    const data = document.getElementById("schedule-data").value;
     const rating = JSON.parse(data);
 
     $scope.users = rating;

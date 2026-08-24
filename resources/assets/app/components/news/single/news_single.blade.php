@@ -2,6 +2,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+@php($show_share = isset($show_share) ? $show_share : true)
+@php($pagination_top = isset($pagination_top) ? $pagination_top : false)
+@if($pagination_top)
+<div class="TournamentPagination">
+    <div class="container">
+        <div class="PaginationPost">
+            @if($prev_link)
+                <a class="prev" href="{{ $prev_link }}"><div class="arrow prev"></div><span>{{trans('clubs.prev')}}</span></a>
+            @endif
+            @if($next_link)
+                <a class="next" href="{{ $next_link }}"><div class="arrow next"></div><span<?=(App::getLocale() == 'ru'?' style="right:129px"':'')?>>{{trans('clubs.next')}}</span></a>
+            @endif
+        </div>
+    </div>
+</div>
+@endif
 <section class="SinleNewsPage">
     <div class="container">
         <!--[ TITLE ]-->
@@ -57,18 +73,21 @@
                 </div>
 
             @endif
+            @if($show_share)
             <!--[ SHARE ]-->
             <div class="ShareWr">
                 <span>Share:</span>
                 <ul class="shareList">
-                    <?php $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>
+                    <?php $url = request()->fullUrl(); ?>
                     <li><a href="https://www.facebook.com/sharer.php?u=<?php echo $url;?>" rel="nofollow" ><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                     <li><a href="https://twitter.com/intent/tweet?url=<?php echo $url;?>&amp;text={{$news->title}}" rel="nofollow" ><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                     <li><a href="https://plus.google.com/share?url=<?php echo $url;?>" rel="nofollow" ><i class="fa fa-google" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
+            @endif
         </div>
         <!--[ PAGINATION ]-->
+        @if(!$pagination_top)
         <div class="PaginationPost">
             @if($prev_link)
                 <a class="prev" href="{{ $prev_link }}"><div class="arrow prev"></div><span>{{trans('clubs.prev')}}</span></a>
@@ -78,6 +97,7 @@
                 <a class="next" href="{{ $next_link }}"><div class="arrow next"></div><span<?=(App::getLocale() == 'ru'?' style="right:129px"':'')?>>{{trans('clubs.next')}}</span></a>
             @endif
         </div>
+        @endif
     </div>
     <script type="text/javascript">
         

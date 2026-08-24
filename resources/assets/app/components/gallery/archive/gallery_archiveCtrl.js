@@ -11,7 +11,7 @@ app.controller("gallery_archiveCtrl", ["$scope", function( $scope ){
         $scope.visible = false;
     };
 
-    lightGallery(document.getElementById('video'), {
+    lightGallery(document.getElementById('gallery-video-content'), {
         loadYoutubeThumbnail: true,
         youtubeThumbSize: 'mqdefault',
         thumbnail: true,

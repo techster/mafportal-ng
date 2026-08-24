@@ -1,7 +1,7 @@
 app.controller("tournaments_archiveCtrl", ["$scope", function( $scope ){
     "use strict";
 
-    $scope.visible = true;
+    $scope.selectedYear = "all";
 
     $scope.com = function () {
         $scope.visible = true;

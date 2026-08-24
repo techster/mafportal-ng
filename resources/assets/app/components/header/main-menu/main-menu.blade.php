@@ -3,7 +3,7 @@ $active = isset($active) ? $active : 0;
 ?>
 <ul>
     @foreach($menu as $key => $item)
-        @if($item->parent_id == null)
+        @if($item->parent_id == null && strtolower(trim($item->name)) !== 'logic')
             <li class="dropdown1">
                 @if($item->link == null)
                     @if(\App\Models\MenuItem::where('parent_id', $item->id)->count() > 0)

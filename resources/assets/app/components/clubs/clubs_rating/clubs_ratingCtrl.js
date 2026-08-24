@@ -1,7 +1,7 @@
 app.controller("rating2Ctrl", ["$scope", "$http", function( $scope, $http ){
     "use strict";
 
-    const data = document.getElementById("data").value;
+    const data = document.getElementById("rating-data").value;
     const rating = JSON.parse(data);
     $scope.visible = false;
     $scope.users = rating.users;
