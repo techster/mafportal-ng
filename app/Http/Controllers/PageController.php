@@ -34,7 +34,11 @@ class PageController extends Controller
 
         $this->data['page'] = $page->withFakes();
 
-        if(isset($json->meta_title_ru) && isset($json->meta_title)) {
+        if ($page->slug === 'history') {
+            $this->data['meta_title'] = App::getLocale() == 'ru'
+                ? 'MafClub - Создатели Игры "Мафия"'
+                : 'MafClub - The Creators of the Game';
+        } elseif(isset($json->meta_title_ru) && isset($json->meta_title)) {
             $this->data['meta_title'] =  (App::getLocale() == 'ru'?$json->meta_title_ru:$json->meta_title);
         } else {
             $this->data['meta_title'] =  (App::getLocale() == 'ru'?$page->meta_title_ru:$page->meta_title_en);

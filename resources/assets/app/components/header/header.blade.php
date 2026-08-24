@@ -12,23 +12,19 @@
                         @include('header/logo/logo')
                     </div>
                     <!--[ MENU ]-->
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <nav class="headMenu">
                             @include('header/main-menu/main-menu')
                         </nav>
                     </div>
 
-                    <!--[ LOGIN ]-->
-
-                    <div class="col-md-2">
+                    <div class="col-md-1 language-column">
                         <!--[ LANG BAR ]-->
                         <div class="col-md-5 lang_bar">
                             @if(App::getLocale() == 'en')
-                                <a style="margin-left: 5px; float: right;" href="{{ str_replace("/en/", "/", "/ru/" . Request::path() . "/") }}"><img class="flagImg" src="{{asset('build/img/ru_flag.svg')}}" alt="ru"></a>
-                                <a style="float: right;" href=""><img class="flagImg" src="{{ asset('build/img/en_flag.svg')}}" alt="en"></a>
+                                <a href="{{ str_replace("/en/", "/", "/ru/" . Request::path() . "/") }}"><span class="language-letter">RU</span></a>
                             @else
-                                <a style="margin-left: 5px; float: right;" href=""><img class="flagImg" src="{{asset('build/img/ru_flag.svg')}}" alt="ru"></a>
-                                <a style="float: right;" href="{{ str_replace("/ru/", "/", "/en/" . Request::path() . "/") }}"><img class="flagImg" src="{{asset('build/img/en_flag.svg')}}" alt="en"></a>
+                                <a href="{{ str_replace("/ru/", "/", "/en/" . Request::path() . "/") }}"><span class="language-letter">EN</span></a>
                             @endif
                         </div>
 
