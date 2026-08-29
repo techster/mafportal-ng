@@ -33,8 +33,8 @@
     },
     {
       "path": "resources/assets/",
-      "status": "retained-live",
-      "reason": "Legacy Gulp/Vue assets are replaced by the Next.js build once equivalent pages are covered.",
+      "status": "removed",
+      "reason": "Legacy Gulp/Vue assets were removed after the Next.js frontend became authoritative.",
       "replacement": "frontend/"
     },
     {
