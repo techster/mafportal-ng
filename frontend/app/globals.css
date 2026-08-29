@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700&subset=cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=Yeseva+One');
 
-:root { color-scheme: light; --red: #b22121; --red-hover: #ff3a3a; --gray: #979797; }
+:root { color-scheme: light; --red: #b22121; --red-hover: #b22121; --gray: #979797; }
 
 * { box-sizing: border-box; }
 
@@ -30,7 +30,7 @@ a { color: inherit; }
   min-height: 75px;
   padding: 15px 0;
 }
-.game-menu, .tournaments-menu { position: relative; }.game-submenu, .tournaments-submenu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; z-index: 10; min-width: 180px; padding: 10px; border: 1px solid #303033; background: #101012; box-shadow: 0 14px 30px rgba(0,0,0,.4); transform: translateX(-50%); }.game-submenu:before, .tournaments-submenu:before { content: ""; position: absolute; top: -13px; right: 0; left: 0; height: 13px; }.game-menu:hover .game-submenu, .game-menu:focus-within .game-submenu, .tournaments-menu:hover .tournaments-submenu, .tournaments-menu:focus-within .tournaments-submenu { display: flex; flex-direction: column; gap: 2px; }.game-submenu a, .tournaments-submenu a { padding: 9px 12px; color: #c4c4c4; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .04em; white-space: nowrap; }.game-submenu a:hover, .game-submenu a:focus-visible, .tournaments-submenu a:hover, .tournaments-submenu a:focus-visible { background: rgba(161,0,0,.18); color: #fff; outline: none; }
+.game-menu, .tournaments-menu { position: relative; }.game-submenu, .tournaments-submenu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; z-index: 10; min-width: 180px; padding: 10px; border: 1px solid #303033; background: #101012; box-shadow: 0 14px 30px rgba(0,0,0,.4); transform: translateX(-50%); }.game-submenu:before, .tournaments-submenu:before { content: ""; position: absolute; top: -13px; right: 0; left: 0; height: 13px; }.game-menu:hover .game-submenu, .game-menu:focus-within .game-submenu, .tournaments-menu:hover .tournaments-submenu, .tournaments-menu:focus-within .tournaments-submenu { display: flex; flex-direction: column; gap: 2px; }.game-submenu a, .tournaments-submenu a { padding: 9px 12px; color: #c4c4c4; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .04em; white-space: nowrap; }.game-submenu a:hover, .game-submenu a:focus-visible, .tournaments-submenu a:hover, .tournaments-submenu a:focus-visible { background: rgba(178,33,33,.18); color: #fff; outline: none; }
 
 .brand { display: flex; flex-direction: column; width: 190px; color: #fff; text-decoration: none; }
 .brand img { display: block; width: 190px; height: 48px; object-fit: contain; object-position: left center; }
@@ -79,7 +79,7 @@ h1, h2, h3 { font-weight: 400; }
 .TournamentsPage .archive-title { padding-top: 120px; }.TournamentFilters { display: flex; align-items: center; justify-content: center; margin-bottom: 54px; }.TournamentFilters label { margin-right: 18px; font-family: "Yeseva One", Georgia, serif; font-size: 20px; }.TournamentFilters select { min-width: 150px; padding: 10px 42px 10px 14px; border: 1px solid #979797; border-radius: 0; background: #fff; color: #000; font-size: 16px; }.TournamentList { margin-bottom: 60px; }.tournament-item { display: flex; padding: 36px 0; border-top: 1px solid #979797; }.tournament-media { display: block; flex: 1; min-height: 180px; margin-right: 56px; background: #242424 center / cover no-repeat; }.tournament-info { flex: 2; }.tournament-info h3 { margin: 0 0 16px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.tournament-desc { display: flex; }.date { flex: 1; min-width: 100px; margin: 8px 45px 0 0; padding-top: 15px; border-top: 1px solid #000; font-size: 13px; font-weight: bold; }.desc { flex: 8; font-size: 15px; font-weight: 300; line-height: 26px; }.empty { padding: 24px; border-left: 3px solid var(--red); background: #f5e5e5; }
 .NewsList { margin-bottom: 100px; }.News_item { border-top: 1px solid #979797; }.News_item a { display: block; padding: 30px 0; text-decoration: none; }.news-item-title { margin: 0 0 18px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.news-content { display: flex; }.news-date { flex: 1; min-width: 100px; margin-right: 45px; padding-top: 15px; border-top: 1px solid #000; font-size: 13px; font-weight: bold; }.news-desc { flex: 8; color: #000; font-size: 15px; font-weight: 300; line-height: 26px; }.news-detail-content { max-width: 960px; margin: 0 auto 100px; }.news-detail-meta { color: #000; font-size: 13px; font-weight: bold; }.news-detail-meta p { font-size: 15px; font-weight: 300; line-height: 26px; }.news-detail-image { min-height: 380px; margin: 35px 0; background: center / cover no-repeat; }.MainCont { color: #000; font-size: 15px; line-height: 26px; }.gallery-heading { margin: 0 0 20px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.GalleryList, .PhotoGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 30px; margin-bottom: 70px; }.gallery-card { text-decoration: none; }.gallery-card-pic { height: 220px; background: url("http://127.0.0.1:8000/build/img/not_img.jpg") center / cover no-repeat; }.gallery-card-title { padding: 12px 0; color: var(--red); font-size: 18px; font-weight: bold; }.PhotoGrid a { position: relative; height: 240px; overflow: hidden; }.PhotoGrid img { width: 100%; height: 100%; object-fit: cover; }
  .detail-hero { min-height: 280px; padding: 90px 0 45px; background: #222 center / cover no-repeat; color: #fff; }.detail-hero h1 { margin: 0; font-family: "Yeseva One", Georgia, serif; font-size: 48px; text-shadow: 2px 4px 3px rgba(0,0,0,.3); }.detail-hero p { color: #fff; }.detail-section { padding: 60px 0; border-bottom: 1px solid #979797; }.detail-section h2 { color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 36px; }.detail-section > div, .detail-section > p { font-size: 15px; line-height: 26px; }
-.tournament-rating { padding-top: 45px; }.rating-panel, .schedule-table { overflow-x: auto; border: 1px solid #7e7e7e; box-shadow: 0 17px 34px 0 rgba(56,96,122,.16); }.rating-toolbar { padding: 15px 36px; border-bottom: 1px solid #000; background: #b10900; color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 20px; }.rating-table, .schedule-table { overflow-x: auto; }.rating-table table, .schedule-table table { width: 100%; min-width: 860px; border-collapse: collapse; }.rating-table th, .schedule-table th { padding: 20px 15px; text-align: left; font-size: 12px; font-weight: bold; white-space: nowrap; }.rating-table tbody tr:nth-child(even), .schedule-table tbody tr:nth-child(even) { background: #f7f7f7; }.rating-table .player-details { display: block; min-width: 245px; line-height: 21px; }.rating-table .player-details small, .schedule-table th small { display: block; color: #999; font-size: .85em; font-weight: normal; }.schedule-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 60px 30px; }.schedule-list article h3 { margin: 0 0 26px 37px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.schedule-table table { min-width: 680px; }
+.tournament-rating { padding-top: 45px; }.rating-panel, .schedule-table { overflow-x: auto; border: 1px solid #7e7e7e; box-shadow: 0 17px 34px 0 rgba(56,96,122,.16); }.rating-toolbar { padding: 15px 36px; border-bottom: 1px solid #000; background: var(--red); color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 20px; }.rating-table, .schedule-table { overflow-x: auto; }.rating-table table, .schedule-table table { width: 100%; min-width: 860px; border-collapse: collapse; }.rating-table th, .schedule-table th { padding: 20px 15px; text-align: left; font-size: 12px; font-weight: bold; white-space: nowrap; }.rating-table tbody tr:nth-child(even), .schedule-table tbody tr:nth-child(even) { background: #f7f7f7; }.rating-table .player-details { display: block; min-width: 245px; line-height: 21px; }.rating-table .player-details small, .schedule-table th small { display: block; color: #999; font-size: .85em; font-weight: normal; }.schedule-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 60px 30px; }.schedule-list article h3 { margin: 0 0 26px 37px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.schedule-table table { min-width: 680px; }
 .rating-table thead tr { background: #fff; color: #000; }
 .rating-table thead th:nth-child(4), .rating-table thead th:nth-child(5), .rating-table thead th:nth-child(6), .rating-table thead th:nth-child(7) { font-size: 0; text-align: center; }
 .rating-table thead th:nth-child(4)::before, .rating-table thead th:nth-child(5)::before, .rating-table thead th:nth-child(6)::before, .rating-table thead th:nth-child(7)::before { font-family: FontAwesome; font-size: 18px; font-weight: normal; }
@@ -92,8 +92,8 @@ h1, h2, h3 { font-weight: 400; }
 .game-accordion-title { margin: 0; }
 .game-accordion-title { display: flex; width: 100%; box-sizing: border-box; align-items: center; gap: 14px; padding: 18px 22px; border: 0; background: transparent; color: #fff; cursor: pointer; font: 600 18px "DM Sans", "Open Sans", sans-serif; text-align: left; list-style: none; }
 .game-accordion-title::-webkit-details-marker { display: none; }
-.game-accordion-title:hover, .game-accordion-item[open] .game-accordion-title { background: rgba(177,9,0,.18); }
-.game-accordion-item.citizens-win { border-color: rgba(177,9,0,.65); background: rgba(177,9,0,.12); }
+.game-accordion-title:hover, .game-accordion-item[open] .game-accordion-title { background: rgba(178,33,33,.18); }
+.game-accordion-item.citizens-win { border-color: rgba(178,33,33,.65); background: rgba(178,33,33,.12); }
 .game-accordion-item.citizens-win .game-accordion-title, .game-accordion-item.mafia-win .game-accordion-title { color: #fff; }
 .game-accordion-item.mafia-win .game-accordion-title:hover, .game-accordion-item.mafia-win[open] .game-accordion-title { background: rgba(0,0,0,.08); }
 .game-accordion-icon { width: 20px; color: var(--red-hover); font-size: 24px; line-height: 1; text-align: center; }
@@ -126,7 +126,7 @@ h1, h2, h3 { font-weight: 400; }
 .tournament-media img { display: block; width: 100%; height: 180px; object-fit: cover; }
 .TournamentFilters nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
 .TournamentFilters nav a { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; padding: 8px 16px; border: 1px solid #303033; background: var(--panel); color: #c4c4c4; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; transition: border-color .2s ease, background-color .2s ease, color .2s ease, transform .2s ease; }
-.TournamentFilters nav a:hover, .TournamentFilters nav a:focus-visible { border-color: var(--red-hover); background: rgba(161,0,0,.18); color: #fff; outline: none; transform: translateY(-2px); }
+.TournamentFilters nav a:hover, .TournamentFilters nav a:focus-visible { border-color: var(--red-hover); background: rgba(178,33,33,.18); color: #fff; outline: none; transform: translateY(-2px); }
 .TournamentFilters nav a.active { border-color: var(--red); background: var(--red); color: #fff; font-weight: 700; text-decoration: none; }
 .TournamentYearSelect { display: none; }
 
@@ -135,7 +135,7 @@ h1, h2, h3 { font-weight: 400; }
 @media (min-width: 992px) and (max-width: 1199px) { .container, .shell { width: 970px; } }
 
 /* MAF editorial UI refresh: retain legacy selectors so every route keeps its data and media. */
-:root { color-scheme: dark; --red: #a10000; --red-hover: #d41414; --accent: #d41414; --ink: #050505; --panel: #151517; --soft: #a7a7a7; --line: rgba(255,255,255,.18); }
+:root { color-scheme: dark; --red: #b22121; --red-hover: #b22121; --accent: #b22121; --ink: #050505; --panel: #151517; --soft: #a7a7a7; --line: rgba(255,255,255,.18); }
 html, body { background: var(--ink); color: #f5f5f5; }
 body { font-family: "DM Sans", "Open Sans", sans-serif; line-height: 1.6; }
 a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
@@ -169,7 +169,7 @@ main { padding-top: 78px; }
 .gallery-slide-title, .video-slide-title { background: rgba(5,5,5,.86); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .04em; }
 .HomeArticles { padding-bottom: 112px; }
 .article-tile { border: 1px solid #303033; border-top: 3px solid var(--red); background: linear-gradient(rgba(5,5,5,.72), rgba(5,5,5,.72)), var(--media-background) center / cover no-repeat; color: #f5f5f5; }
-.article-tile:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.article-tile:hover { background: linear-gradient(rgba(178,33,33,.78), rgba(178,33,33,.78)), var(--media-background) center / cover no-repeat; }
 .article-author { display: block; margin-bottom: 4px; color: #fff; font-size: 17px; font-weight: 700; letter-spacing: .04em; }
 .ArticlesPage .MainCont > div > p:has(strong) { margin: 56px 0 18px; color: #f5f5f5; font-family: "Yeseva One", Georgia, serif; font-size: 28px; }
 .ArticlesPage .MainCont > div > p:has(strong):first-child { margin-top: 0; }
@@ -177,7 +177,7 @@ main { padding-top: 78px; }
 .ArticlesPage .MainCont br { display: none; }
 .ArticlesPage .MainCont ul { display: grid; grid-auto-rows: 190px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 34px; padding: 0; list-style: none; }
 .ArticlesPage .MainCont li { display: flex; height: 100%; box-sizing: border-box; min-height: 0; padding: 22px; flex-direction: column; justify-content: center; border: 1px solid #303033; border-top: 3px solid var(--red); background: linear-gradient(rgba(5,5,5,.72), rgba(5,5,5,.72)), var(--media-background) center / cover no-repeat; }
-.ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(178,33,33,.78), rgba(178,33,33,.78)), var(--media-background) center / cover no-repeat; }
 .ArticlesPage .MainCont li a { display: block; color: #f5f5f5; font-family: "Yeseva One", Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.35; text-decoration: none; }
 .ArticlesPage .MainCont li a:after { display: block; margin-top: 20px; color: var(--red-hover); content: "->"; font-family: "DM Mono", monospace; font-size: 18px; }
 .ArticlesPage .MainCont li:hover a:after { color: #fff; }
@@ -195,7 +195,7 @@ main { padding-top: 78px; }
 .country-pic { border: 1px solid #303033; }
 .tournament-media { margin-right: 40px; }
 .tournament-info h3, .news-item-title { font-size: 29px; }
-.empty { border-left-color: var(--red); background: rgba(161,0,0,.18); color: #fff; }
+.empty { border-left-color: var(--red); background: rgba(178,33,33,.18); color: #fff; }
 .detail-hero { background-color: #151517; background-image: var(--media-background); }
 .detail-section { border-color: var(--line); }
 .detail-section h2 { color: var(--red-hover); }
@@ -225,7 +225,7 @@ main { padding-top: 78px; }
 .country-pic, .gallery-card-pic { background-image: url("/assets/images/system/missing-media.svg"); }
 .detail-hero { background-image: var(--media-background); }
 .article-tile, .ArticlesPage .MainCont li { background-image: var(--media-background); }
-.article-tile:hover, .ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.article-tile:hover, .ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(178,33,33,.78), rgba(178,33,33,.78)), var(--media-background) center / cover no-repeat; }
 .WorldCupHistory .MainCont > div:last-child > ul > li:hover img { transform: scale(1.04); }
 .WorldCupHistory .MainCont > div:last-child > ul h3 { margin: 0; padding: 20px 20px 8px; color: var(--red-hover); font: 400 21px/1.25 "Yeseva One", Georgia, serif; }
 .WorldCupHistory .MainCont > div:last-child > ul h3 a { color: inherit; text-decoration: none; }

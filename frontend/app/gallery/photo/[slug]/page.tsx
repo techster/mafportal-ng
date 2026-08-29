@@ -11,8 +11,8 @@ export default async function PhotoGalleryPage({ params }: { params: Promise<{ l
     <PhotoGalleryWidget photos={gallery.photos.map((photo) => {
       const fallback = assetUrl(gallery.preview) ?? "/build/img/not_img.jpg";
       return {
-        original: assetUrl(`uploads/${photo}`) ?? fallback,
-        thumbnail: assetUrl(`uploads/thumb/${photo}`) ?? fallback,
+        original: assetUrl(photo) ?? fallback,
+        thumbnail: assetUrl(photo) ?? fallback,
         originalAlt: `${gallery.title} photo`,
         thumbnailAlt: `${gallery.title} thumbnail`,
       };

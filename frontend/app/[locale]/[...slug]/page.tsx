@@ -147,8 +147,8 @@ export default async function LocalizedGenericPage({ params }: { params: Promise
   const contentFromVideo = videoStart >= 0 ? content.slice(videoStart) : "";
   const photoFallback = assetUrl(photoGallery?.preview) ?? "/build/img/not_img.jpg";
   const photoItems = photoGallery?.photos.map((photo) => ({
-    original: assetUrl(`uploads/${photo}`) ?? photoFallback,
-    thumbnail: assetUrl(`uploads/thumb/${photo}`) ?? photoFallback,
+    original: assetUrl(photo) ?? photoFallback,
+    thumbnail: assetUrl(photo) ?? photoFallback,
     originalAlt: `${localized.title} photo`,
     thumbnailAlt: `${localized.title} thumbnail`,
   })) ?? [];

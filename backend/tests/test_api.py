@@ -1,9 +1,16 @@
 from fastapi.testclient import TestClient
 
+from app.api.content import _gallery_preview
 from app.main import app
 
 
 client = TestClient(app)
+
+
+def test_gallery_preview_falls_back_from_legacy_upload_path() -> None:
+    photos = ["galleries/wmc_armenia_history/cover.jpg"]
+
+    assert _gallery_preview("/uploads/gallery/wmc_armenia_history/old-cover.jpg", photos, "wmc_armenia_history") == photos[0]
 
 
 def test_clubs_are_read_from_sqlite() -> None:

@@ -8,7 +8,15 @@ function normalizeContent(content: string, locale: string): string {
     .replace(/<blockquote\b[^>]*>[\s\S]*?<\/blockquote>/i, "")
     .replace(/https?:\/\/(?:www\.)?mafportal\.com(?=\/)/gi, "")
     .replace(/(\b(?:src|href)=["'])\/(?:en|ru)\/?(uploads\/[^"']+)/gi, (_, prefix: string, path: string) => `${prefix}${assetUrl(`/${path}`)}`)
-    .replace(/(\bsrc=["'])\/(uploads\/[^"']+)/gi, (_, prefix: string, path: string) => `${prefix}${assetUrl(`/${path}`)}`)
+    .replace(/<img\b[^>]*>/gi, (tag) => {
+      const source = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
+      const alt = tag.match(/\balt=["']([^"']+)["']/i)?.[1] ?? "";
+      if (!source) return tag;
+      const mapped = alt.startsWith("8th ")
+        ? assetUrl("/uploads/maf-world-cup-history/img/8th_mwc.jpg")
+        : assetUrl(source);
+      return mapped ? tag.replace(source, mapped) : tag;
+    })
     .replace(/href="\.\//gi, `href="/${locale}/mafworldcup-history/`);
   return locale === "ru"
     ? normalized.replace(/(август|июль)\s+(\d{1,2}-\d{1,2}),\s*(\d{4})/gi, (_, month, days, year) => `${days} ${month.toLowerCase() === "август" ? "Августа" : "Июля"}, ${year}`)

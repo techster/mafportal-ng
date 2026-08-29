@@ -16,6 +16,7 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .tox/
+.vscode/
 node_modules/
 **/node_modules/
 vendor/
@@ -27,3 +28,5 @@ bower_components/
 test-results/
 playwright-report/
 tsconfig.tsbuildinfo
+DEPLOY_DIGITALOCEAN.md
+secrets.md

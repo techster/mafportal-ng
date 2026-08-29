@@ -60,16 +60,24 @@ class MediaStorage:
         path = path.lstrip("/")
         if path.startswith("assets/"):
             path = path[7:]
+        if path.startswith("uploads/users/avatar/"):
+            return self._safe_key("avatar/" + path[21:])
         if path.startswith("uploads/"):
             return self._safe_key("images/" + path[8:])
         if path.startswith("avatars/"):
-            return self._safe_key("images/users/avatar/" + path[8:])
+            return self._safe_key("avatar/" + path[8:])
+        if path.startswith("avatar/"):
+            return self._safe_key(path)
         if path.startswith("images/uploads/"):
             return self._safe_key("images/" + path[15:])
         if path.startswith("images/avatars/"):
-            return self._safe_key("images/users/avatar/" + path[15:])
+            return self._safe_key("avatar/" + path[15:])
+        if path.startswith("images/users/avatar/"):
+            return self._safe_key("avatar/" + path[20:])
         if path.startswith("images/system/"):
             return self._safe_key("system/" + path[14:])
+        if path.startswith(("galleries/", "tournaments/")):
+            return self._safe_key(path)
         if path.startswith(("images/", "system/", "images/build/", "videos/")):
             return self._safe_key(path)
         if path.startswith("build/"):
@@ -84,17 +92,17 @@ class MediaStorage:
         if not value:
             return None
         raw = str(value).strip().replace("\\/", "/").replace("\\", "/")
-        if raw.startswith(("http://", "https://")) and self.backend == "local":
-            return raw
         key = self.key_for(raw)
+        if raw.startswith(("http://", "https://")) and self.backend == "local" and not key:
+            return raw
         if not key:
             return raw if raw.startswith(("http://", "https://")) else None
         if local_legacy is None:
             local_legacy = self.settings.media_legacy_compatibility
         canonical_input = raw.lstrip("/").startswith(("images/", "system/", "videos/", "assets/"))
         if self.backend == "local" and local_legacy and not canonical_input:
-            if key.startswith("images/users/avatar/"):
-                return "/avatars/" + key.removeprefix("images/users/avatar/")
+            if key.startswith("avatar/"):
+                return "/avatars/" + key.removeprefix("avatar/")
             if key.startswith("images/"):
                 return "/uploads/" + key.removeprefix("images/")
             if key.startswith("system/"):

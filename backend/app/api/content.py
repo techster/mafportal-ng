@@ -28,7 +28,7 @@ def get_news(slug: str, db: Session = Depends(get_db)) -> News:
 @router.get("/galleries/photos", response_model=list[PhotoGalleryRead])
 def list_photo_galleries(db: Session = Depends(get_db)) -> list[PhotoGalleryRead]:
     galleries = db.scalars(select(PhotoGallery).order_by(PhotoGallery.created_at.desc())).all()
-    return [PhotoGalleryRead.model_validate({**gallery.__dict__, "photos": _photos(gallery.photos)}) for gallery in galleries]
+    return [_photo_gallery_read(gallery) for gallery in galleries]
 
 
 @router.get("/galleries/photos/{slug}", response_model=PhotoGalleryRead)
@@ -36,7 +36,7 @@ def get_photo_gallery(slug: str, db: Session = Depends(get_db)) -> PhotoGalleryR
     gallery = db.scalar(select(PhotoGallery).where(PhotoGallery.slug == slug))
     if gallery is None:
         raise HTTPException(status_code=404, detail="Photo gallery not found")
-    return PhotoGalleryRead.model_validate({**gallery.__dict__, "photos": _photos(gallery.photos)})
+    return _photo_gallery_read(gallery)
 
 
 @router.get("/galleries/videos", response_model=list[VideoGalleryRead])
@@ -57,11 +57,38 @@ def get_page(slug: str, db: Session = Depends(get_db)) -> Page:
     return page
 
 
-def _photos(value: str | None) -> list[str]:
+def _gallery_media_path(value: str | None, slug: str) -> str | None:
+    if not value:
+        return None
+    normalized = str(value).replace("\\", "/").lstrip("/")
+    if normalized.startswith("galleries/"):
+        return normalized
+    return str(value)
+
+
+def _gallery_preview(value: str | None, photos: list[str], slug: str) -> str | None:
+    normalized = _gallery_media_path(value, slug)
+    if normalized and normalized.startswith("galleries/"):
+        return normalized
+    return photos[0] if photos else normalized
+
+
+def _photo_gallery_read(gallery: PhotoGallery) -> PhotoGalleryRead:
+    photos = _photos(gallery.photos, gallery.slug)
+    return PhotoGalleryRead.model_validate(
+        {
+            **gallery.__dict__,
+            "photos": photos,
+            "preview": _gallery_preview(gallery.preview, photos, gallery.slug),
+        }
+    )
+
+
+def _photos(value: str | None, slug: str) -> list[str]:
     if not value:
         return []
     try:
         parsed = json.loads(value)
     except json.JSONDecodeError:
         return []
-    return parsed if isinstance(parsed, list) else []
+    return [_gallery_media_path(photo, slug) for photo in parsed if isinstance(photo, str)]

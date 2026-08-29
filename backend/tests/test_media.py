@@ -12,6 +12,7 @@ def test_local_storage_uses_configured_asset_root(tmp_path: Path) -> None:
 
     assert (tmp_path / "canonical-assets" / "images" / "example.jpg").read_bytes() == b"image-data"
     assert storage.url("images/example.jpg") == "/assets/images/example.jpg"
+    assert storage.url("tournaments/example.jpg") == "/assets/tournaments/example.jpg"
 
 
 def test_legacy_compatibility_setting_controls_url_shape(tmp_path: Path) -> None:
@@ -33,7 +34,13 @@ def test_legacy_admin_and_avatar_paths_use_reorganized_locations(tmp_path: Path)
     storage.put("avatars/example.jpg", b"avatar-image")
 
     assert (tmp_path / "assets" / "images" / "admin" / "photos" / "example.jpg").read_bytes() == b"admin-image"
-    assert (tmp_path / "assets" / "images" / "users" / "avatar" / "example.jpg").read_bytes() == b"avatar-image"
+    assert (tmp_path / "assets" / "avatar" / "example.jpg").read_bytes() == b"avatar-image"
+    assert storage.url("avatars/example.jpg") == "/assets/avatar/example.jpg"
+    assert storage.url("images/avatars/example.jpg") == "/assets/avatar/example.jpg"
+    assert storage.url("images/users/avatar/example.jpg") == "/assets/avatar/example.jpg"
+    assert storage.url("http://127.0.0.1:8001/assets/images/users/avatar/example.jpg") == "/assets/avatar/example.jpg"
+    assert storage.url("/uploads/users/avatar/example.jpg") == "/assets/avatar/example.jpg"
+    assert storage.url("avatar/example.jpg") == "/assets/avatar/example.jpg"
 
 
 def test_configured_legacy_root_is_independent_from_asset_root(tmp_path: Path) -> None:

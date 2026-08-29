@@ -94,6 +94,31 @@ def collect_entries() -> list[dict[str, object]]:
     return entries
 
 
+def collect_canonical_entries() -> list[dict[str, object]]:
+    entries: list[dict[str, object]] = []
+    for path in sorted(ASSET_ROOT.rglob("*")):
+        if not path.is_file() or path == MANIFEST_PATH:
+            continue
+        kind = media_kind(path)
+        if kind is None:
+            continue
+        key = path.relative_to(ASSET_ROOT).as_posix()
+        entry: dict[str, object] = {
+            "source": f"assets/{key}",
+            "key": key,
+            "media_type": kind[:-1],
+            "mime_type": mimetypes.guess_type(path.name)[0] or "application/octet-stream",
+            "bytes": path.stat().st_size,
+            "sha256": sha256(path),
+            "status": "verified",
+        }
+        dimensions = image_metadata(path)
+        if dimensions:
+            entry["dimensions"] = dimensions
+        entries.append(entry)
+    return entries
+
+
 def copy_entries(entries: list[dict[str, object]]) -> None:
     for entry in entries:
         source = ROOT / str(entry["source"])
@@ -130,9 +155,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--copy", action="store_true", help="Copy media into assets/ after hashing")
     parser.add_argument("--upload", action="store_true", help="Upload source media to configured Spaces storage")
+    parser.add_argument("--refresh", action="store_true", help="Rebuild the manifest from the current canonical assets tree")
     args = parser.parse_args()
     ASSET_ROOT.mkdir(parents=True, exist_ok=True)
-    entries = collect_entries()
+    entries = collect_canonical_entries() if args.refresh else collect_entries()
     if args.copy:
         copy_entries(entries)
     if args.upload:
