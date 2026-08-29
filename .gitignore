@@ -1,7 +1,6 @@
 .env
 .idea/
-archive/*.*
-assets/*.*
+/assets/
 .venv/
 **/.venv/
 venv/
