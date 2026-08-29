@@ -1,1 +1,0 @@
-@include('shop/shop-modal/shop-modal')
