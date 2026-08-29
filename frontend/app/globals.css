@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700&subset=cyrillic-ext');
+@import url('https://fonts.googleapis.com/css?family=Yeseva+One');
+
+:root { color-scheme: light; --red: #b22121; --red-hover: #ff3a3a; --gray: #979797; }
+
+* { box-sizing: border-box; }
+
+html, body { min-width: 320px; margin: 0; background: #fff; color: #000; }
+body { overflow-x: hidden; font-family: "Open Sans", Arial, sans-serif; font-size: 16px; line-height: 1.4; }
+
+a { color: inherit; }
+
+.shell, .container { width: calc(100% - 30px); margin: 0 auto; }
+.container { max-width: 1170px; }
+
+.site-header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  border-bottom: 1px solid rgba(152,152,152,.61);
+  background: #000;
+  box-shadow: #565656 0 0 18px 0;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 75px;
+  padding: 15px 0;
+}
+.game-menu, .tournaments-menu { position: relative; }.game-submenu, .tournaments-submenu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; z-index: 10; min-width: 180px; padding: 10px; border: 1px solid #303033; background: #101012; box-shadow: 0 14px 30px rgba(0,0,0,.4); transform: translateX(-50%); }.game-submenu:before, .tournaments-submenu:before { content: ""; position: absolute; top: -13px; right: 0; left: 0; height: 13px; }.game-menu:hover .game-submenu, .game-menu:focus-within .game-submenu, .tournaments-menu:hover .tournaments-submenu, .tournaments-menu:focus-within .tournaments-submenu { display: flex; flex-direction: column; gap: 2px; }.game-submenu a, .tournaments-submenu a { padding: 9px 12px; color: #c4c4c4; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .04em; white-space: nowrap; }.game-submenu a:hover, .game-submenu a:focus-visible, .tournaments-submenu a:hover, .tournaments-submenu a:focus-visible { background: rgba(161,0,0,.18); color: #fff; outline: none; }
+
+.brand { display: flex; flex-direction: column; width: 190px; color: #fff; text-decoration: none; }
+.brand img { display: block; width: 190px; height: 48px; object-fit: contain; object-position: left center; }
+.brand-name { color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 29px; line-height: 30px; }
+.brand-tagline { color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 12px; line-height: 15px; white-space: nowrap; }
+
+.nav-links { display: flex; flex: 1; justify-content: center; gap: 18px; color: #fff; font: 700 11px Arial, sans-serif; text-transform: uppercase; }
+.nav-links a { text-decoration: none; }
+.nav-links a:hover { color: var(--red-hover); }
+.language { min-width: 28px; height: 22px; padding: 0 4px; border: 1px solid #fff; color: #fff; font: 700 11px/22px Arial, sans-serif; text-align: center; text-decoration: none; }
+.language:hover { background: #fff; color: #000; }
+
+main { padding: 75px 0 64px; }
+
+.eyebrow { color: var(--red); font: 700 12px/1 Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+h1, h2, h3 { font-weight: 400; }
+.Carusel { min-height: 350px; max-height: 450px; height: 38vw; margin-bottom: 85px; background: var(--media-background) center / cover no-repeat; }
+.Carusel .titleWr { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 0 20px; }
+.Carusel .title { width: 100%; margin: 0 0 15px; padding: 5px; border: 2px solid var(--red); border-radius: 20px; background: rgba(0,0,0,.79); color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 60px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,.28); }
+.AboutBox { margin: 100px 0; }
+.AboutBox .contWr { position: relative; }
+.AboutBox .image { width: 515px; min-height: 300px; background: url("http://127.0.0.1:8000/build/img/about_pic.jpg") center / cover no-repeat; border: 1px solid var(--red); }
+.AboutBox .desc { position: absolute; top: 50%; right: 0; width: 61%; padding: 35px 28px 35px 40px; background: #f2f2f3; transform: translateY(-50%); font-size: 15px; font-weight: 300; line-height: 1.73; }
+.about-learn-more { color: var(--red); }
+.Title { padding: 100px 0 40px; }
+.titleWr { line-height: normal; text-align: center; }
+.title_name { display: inline-block; margin: 0; font-family: "Yeseva One", Georgia, serif; font-size: 48px; text-shadow: 2px 4px 3px rgba(0,0,0,.3); }
+.lineDef { display: inline-block; position: relative; width: 238px; height: 1px; margin-bottom: 10px; border: 1px solid #979797; vertical-align: middle; }
+.left_line { margin-right: 25px; }.right_line { margin-left: 25px; }
+.left_line:before, .right_line:before { content: ""; position: absolute; top: -2px; width: 100px; height: 4px; background: #000; }.left_line:before { right: 20px; }.right_line:before { left: 20px; }
+.HomeGallery, .HomeVideoGallery { margin-bottom: 100px; overflow: hidden; }
+.gallery-carousel, .video-carousel { width: 100%; overflow: hidden; }
+.gallery-track, .video-track { display: flex; width: max(100%, calc(var(--gallery-count) / var(--visible-count) * 100%)); animation: home-gallery-scroll 160s linear 1 forwards; }
+.gallery-carousel:hover .gallery-track, .video-carousel:hover .video-track { animation-play-state: paused; }
+.gallery-item, .video-item { flex: 0 0 calc(100% / var(--gallery-count)); padding: 0 8px; }
+.gallery-slide, .video-slide { position: relative; display: block; height: 260px; background: #f2f2f3; }
+.gallery-slide img, .video-slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gallery-slide-title, .video-slide-title { position: absolute; right: 0; bottom: 0; left: 0; padding: 12px 16px; background: rgba(0,0,0,.7); color: #fff; text-align: center; }
+.video-slide:before { content: "\25B6"; position: absolute; top: 50%; left: 50%; z-index: 1; width: 54px; height: 54px; border-radius: 50%; background: rgba(178,33,33,.9); color: #fff; line-height: 54px; text-align: center; transform: translate(-50%,-50%); }
+@keyframes home-gallery-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-1 * (100% - (100% / var(--gallery-count) * var(--visible-count))))); } }
+@media screen and (max-width: 991px) { .gallery-track, .video-track { --visible-count: 2; } }
+@media screen and (max-width: 600px) { .gallery-track, .video-track { --visible-count: 1; } }
+.news-title { margin-bottom: 0; }
+
+.ClubsPage { margin-bottom: 100px; }.archive-title { padding: 100px 0 40px; text-align: center; text-shadow: 2px 4px 3px rgba(0,0,0,.3); }.descWr { width: 75%; margin: 0 auto; text-align: center; }.descWr .warn { margin-bottom: 20px; font-family: "Yeseva One", Georgia, serif; font-size: 24px; }.descWr p { margin-bottom: 24px; font-size: 15px; font-weight: 300; line-height: 26px; }.page-line { width: 100%; height: 1px; margin-bottom: 58px; background: #979797; }.clubList { display: flex; flex-wrap: wrap; justify-content: space-between; }.club-item { width: 23%; margin-bottom: 40px; }.country { margin-bottom: 20px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; text-align: center; }.country-pic { width: 100%; height: 180px; margin-bottom: 15px; background: url("http://127.0.0.1:8000/build/img/not_img.jpg") center / cover no-repeat; }.cityList { margin-bottom: 18px; }.cityList a { display: block; color: var(--red); font-size: 18px; font-weight: bold; line-height: 36px; text-decoration: underline; }.country-desc { font-size: 13px; font-weight: 300; line-height: 26px; }
+.TournamentsPage .archive-title { padding-top: 120px; }.TournamentFilters { display: flex; align-items: center; justify-content: center; margin-bottom: 54px; }.TournamentFilters label { margin-right: 18px; font-family: "Yeseva One", Georgia, serif; font-size: 20px; }.TournamentFilters select { min-width: 150px; padding: 10px 42px 10px 14px; border: 1px solid #979797; border-radius: 0; background: #fff; color: #000; font-size: 16px; }.TournamentList { margin-bottom: 60px; }.tournament-item { display: flex; padding: 36px 0; border-top: 1px solid #979797; }.tournament-media { display: block; flex: 1; min-height: 180px; margin-right: 56px; background: #242424 center / cover no-repeat; }.tournament-info { flex: 2; }.tournament-info h3 { margin: 0 0 16px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.tournament-desc { display: flex; }.date { flex: 1; min-width: 100px; margin: 8px 45px 0 0; padding-top: 15px; border-top: 1px solid #000; font-size: 13px; font-weight: bold; }.desc { flex: 8; font-size: 15px; font-weight: 300; line-height: 26px; }.empty { padding: 24px; border-left: 3px solid var(--red); background: #f5e5e5; }
+.NewsList { margin-bottom: 100px; }.News_item { border-top: 1px solid #979797; }.News_item a { display: block; padding: 30px 0; text-decoration: none; }.news-item-title { margin: 0 0 18px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.news-content { display: flex; }.news-date { flex: 1; min-width: 100px; margin-right: 45px; padding-top: 15px; border-top: 1px solid #000; font-size: 13px; font-weight: bold; }.news-desc { flex: 8; color: #000; font-size: 15px; font-weight: 300; line-height: 26px; }.news-detail-content { max-width: 960px; margin: 0 auto 100px; }.news-detail-meta { color: #000; font-size: 13px; font-weight: bold; }.news-detail-meta p { font-size: 15px; font-weight: 300; line-height: 26px; }.news-detail-image { min-height: 380px; margin: 35px 0; background: center / cover no-repeat; }.MainCont { color: #000; font-size: 15px; line-height: 26px; }.gallery-heading { margin: 0 0 20px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.GalleryList, .PhotoGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 30px; margin-bottom: 70px; }.gallery-card { text-decoration: none; }.gallery-card-pic { height: 220px; background: url("http://127.0.0.1:8000/build/img/not_img.jpg") center / cover no-repeat; }.gallery-card-title { padding: 12px 0; color: var(--red); font-size: 18px; font-weight: bold; }.PhotoGrid a { position: relative; height: 240px; overflow: hidden; }.PhotoGrid img { width: 100%; height: 100%; object-fit: cover; }
+ .detail-hero { min-height: 280px; padding: 90px 0 45px; background: #222 center / cover no-repeat; color: #fff; }.detail-hero h1 { margin: 0; font-family: "Yeseva One", Georgia, serif; font-size: 48px; text-shadow: 2px 4px 3px rgba(0,0,0,.3); }.detail-hero p { color: #fff; }.detail-section { padding: 60px 0; border-bottom: 1px solid #979797; }.detail-section h2 { color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 36px; }.detail-section > div, .detail-section > p { font-size: 15px; line-height: 26px; }
+.tournament-rating { padding-top: 45px; }.rating-panel, .schedule-table { overflow-x: auto; border: 1px solid #7e7e7e; box-shadow: 0 17px 34px 0 rgba(56,96,122,.16); }.rating-toolbar { padding: 15px 36px; border-bottom: 1px solid #000; background: #b10900; color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 20px; }.rating-table, .schedule-table { overflow-x: auto; }.rating-table table, .schedule-table table { width: 100%; min-width: 860px; border-collapse: collapse; }.rating-table th, .schedule-table th { padding: 20px 15px; text-align: left; font-size: 12px; font-weight: bold; white-space: nowrap; }.rating-table tbody tr:nth-child(even), .schedule-table tbody tr:nth-child(even) { background: #f7f7f7; }.rating-table .player-details { display: block; min-width: 245px; line-height: 21px; }.rating-table .player-details small, .schedule-table th small { display: block; color: #999; font-size: .85em; font-weight: normal; }.schedule-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 60px 30px; }.schedule-list article h3 { margin: 0 0 26px 37px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.schedule-table table { min-width: 680px; }
+.rating-table thead tr { background: #fff; color: #000; }
+.rating-table thead th:nth-child(4), .rating-table thead th:nth-child(5), .rating-table thead th:nth-child(6), .rating-table thead th:nth-child(7) { font-size: 0; text-align: center; }
+.rating-table thead th:nth-child(4)::before, .rating-table thead th:nth-child(5)::before, .rating-table thead th:nth-child(6)::before, .rating-table thead th:nth-child(7)::before { font-family: FontAwesome; font-size: 18px; font-weight: normal; }
+.rating-table thead th:nth-child(4)::before { content: "\f0c0"; }
+.rating-table thead th:nth-child(5)::before { content: "\f21b"; }
+.rating-table thead th:nth-child(6)::before { content: "\f005"; }
+.rating-table thead th:nth-child(7)::before { content: "\f27e"; }
+.game-accordion { display: grid; gap: 8px; }
+.game-accordion-item { border: 1px solid var(--line); background: var(--panel); }
+.game-accordion-title { margin: 0; }
+.game-accordion-title { display: flex; width: 100%; box-sizing: border-box; align-items: center; gap: 14px; padding: 18px 22px; border: 0; background: transparent; color: #fff; cursor: pointer; font: 600 18px "DM Sans", "Open Sans", sans-serif; text-align: left; list-style: none; }
+.game-accordion-title::-webkit-details-marker { display: none; }
+.game-accordion-title:hover, .game-accordion-item[open] .game-accordion-title { background: rgba(177,9,0,.18); }
+.game-accordion-item.citizens-win { border-color: rgba(177,9,0,.65); background: rgba(177,9,0,.12); }
+.game-accordion-item.citizens-win .game-accordion-title, .game-accordion-item.mafia-win .game-accordion-title { color: #fff; }
+.game-accordion-item.mafia-win .game-accordion-title:hover, .game-accordion-item.mafia-win[open] .game-accordion-title { background: rgba(0,0,0,.08); }
+.game-accordion-icon { width: 20px; color: var(--red-hover); font-size: 24px; line-height: 1; text-align: center; }
+.game-accordion-icon::before { content: "+"; }
+.game-accordion-item[open] .game-accordion-icon::before { content: "-"; }
+.game-accordion-result { margin-left: auto; color: #aaa; font-size: 13px; font-weight: normal; }
+.game-accordion-panel { padding: 0 22px 22px; }
+.game-accordion-panel .schedule-table { border-color: var(--line); }
+.player-avatar { display: inline-block; flex: 0 0 42px; width: 42px; height: 42px; margin-right: 8px; border-radius: 50%; object-fit: cover; vertical-align: middle; }
+.player-cell { display: inline-flex; flex-direction: row; align-items: center; flex-wrap: nowrap; height: 42px; white-space: nowrap; vertical-align: middle; }
+.rating-table .player-details { display: inline-flex; height: 42px; flex: 0 0 auto; flex-direction: column; justify-content: center; line-height: 21px; }
+.game-accordion-panel .schedule-table th small { display: block; color: #999; font-size: .85em; font-weight: normal; }
+.HomeArticles { margin-bottom: 100px; }.article-section { margin-bottom: 33px; }.article-section-title { margin: 0 0 18px; font-family: "Yeseva One", Georgia, serif; font-size: 28px; }.article-grid { display: grid; grid-auto-rows: 190px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }.article-tile { display: flex; height: 100%; box-sizing: border-box; min-height: 0; padding: 22px; flex-direction: column; justify-content: space-between; border-top: 3px solid var(--red); background: #fafafa; color: #111; text-decoration: none; }.article-category { color: #777; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }.article-title { margin: 24px 0 18px; font-family: "Yeseva One", Georgia, serif; font-size: 21px; }.article-arrow, .article-more { color: var(--red); }.article-arrow { align-self: flex-end; font-size: 20px; }.article-tile:hover { background: var(--red); color: #fff; }.article-tile:hover .article-category, .article-tile:hover .article-arrow { color: #fff; }.article-more { display: inline-block; margin-top: 16px; font-size: 14px; font-weight: bold; }.HomeNews { margin-bottom: 70px; }.HomeNews a { display: flex; justify-content: space-between; padding: 18px 0; border-top: 1px solid #979797; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 24px; text-decoration: none; }.HomeTestimonials { padding: 45px 0 100px; background: #f2f2f3; }.testimonial-label { margin-bottom: 25px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 30px; }.HomeTestimonials article { max-width: 760px; margin: 0 auto 35px; text-align: center; }.HomeTestimonials article h2 { font-family: "Yeseva One", Georgia, serif; font-size: 24px; }.HomeTestimonials article p { white-space: pre-line; font-size: 15px; line-height: 26px; }
+.site-footer { padding: 28px 0; background: #000; color: #777; font: .8rem "DM Sans", "Open Sans", sans-serif; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.footer-brand { color: var(--accent); font: 1.4rem Georgia, serif; }
+
+@media (max-width: 1024px) {
+  .shell, .container { width: calc(100% - 30px); }
+  .site-nav { align-items: flex-start; flex-direction: column; justify-content: center; padding: 10px 0; }
+  .site-header { height: 68px; }.brand { width: auto; }.brand-name { font-size: 24px; line-height: 25px; }.brand-tagline { font-size: 10px; line-height: 13px; }
+  .nav-links { display: none; }.site-nav::after { content: "☰"; position: absolute; right: 38px; top: 14px; color: #fff; font-size: 32px; line-height: 36px; }
+  .language { position: absolute; top: 18px; right: 14px; }
+  main { padding-top: 68px; }.Carusel .title { font-size: 32px; }.AboutBox { margin: 60px 0 40px; }.AboutBox .image { width: 100%; }.AboutBox .desc { position: static; width: auto; padding: 35px 25px; transform: none; }.Title { padding-top: 70px; padding-bottom: 35px; }.title_name { font-size: 30px; }.lineDef { display: none; }.gallery-slide, .video-slide { flex-basis: 100%; }.clubList { display: block; }.club-item { width: 100%; }.descWr { width: 100%; }.TournamentsPage .archive-title { padding-top: 70px; }.tournament-item { display: block; padding-top: 0; border: 0; }.tournament-media { margin: 0 0 15px; }.tournament-desc, .news-content { display: block; }.date, .news-date { margin-bottom: 15px; }.TournamentFilters { align-items: stretch; flex-direction: column; }.TournamentFilters label { margin: 0 0 10px; text-align: center; }.TournamentFilters select { width: 100%; }.GalleryList, .PhotoGrid { grid-template-columns: 1fr; }.gallery-card-pic, .PhotoGrid a { height: 220px; }.news-item-title { font-size: 24px; }
+}
+
+@media (min-width: 768px) and (max-width: 991px) { .container, .shell { width: 750px; } }
+
+.club-nav { padding: 16px 0; background: #000; color: #fff; }.club-nav .container { display: flex; gap: 24px; }.club-nav a { text-decoration: none; text-transform: uppercase; font: 700 11px Arial, sans-serif; }.club-nav a:hover, .club-nav .active { color: var(--red-hover); }.breadcrumb { padding: 18px 0; color: #777; font-size: 13px; }.breadcrumb a { color: var(--red); }.club-hero { min-height: 380px; background: center / cover no-repeat; }.club-hero .container { position: relative; display: flex; min-height: 380px; align-items: center; justify-content: center; }.club-hero h1 { padding: 10px 24px; background: rgba(0,0,0,.72); color: #fff; font-family: "Yeseva One", Georgia, serif; font-size: 48px; text-align: center; }.club-hero-empty { min-height: 83px; }.down-button { position: absolute; bottom: 20px; left: 50%; width: 42px; height: 42px; border: 2px solid #fff; border-radius: 50%; color: #fff; font-size: 28px; line-height: 34px; text-align: center; text-decoration: none; transform: translateX(-50%); }.event-list article { padding: 20px 0; border-top: 1px solid #979797; }.event-list h3 { margin: 0 0 8px; color: var(--red); font-family: "Yeseva One", Georgia, serif; font-size: 24px; }.event-list time { display: block; margin-bottom: 10px; font-size: 13px; font-weight: bold; }.Pagination, .detail-pager { display: flex; justify-content: center; gap: 24px; align-items: center; margin: 30px 0 70px; }.Pagination a, .detail-pager a { color: var(--red); font-weight: bold; text-decoration: none; }.TournamentFilters nav { display: flex; gap: 14px; }.TournamentFilters nav a { color: var(--red); text-decoration: none; }.TournamentFilters nav .active { font-weight: bold; text-decoration: underline; }
+.tournament-media img { display: block; width: 100%; height: 180px; object-fit: cover; }
+.TournamentFilters nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
+.TournamentFilters nav a { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; padding: 8px 16px; border: 1px solid #303033; background: var(--panel); color: #c4c4c4; font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; transition: border-color .2s ease, background-color .2s ease, color .2s ease, transform .2s ease; }
+.TournamentFilters nav a:hover, .TournamentFilters nav a:focus-visible { border-color: var(--red-hover); background: rgba(161,0,0,.18); color: #fff; outline: none; transform: translateY(-2px); }
+.TournamentFilters nav a.active { border-color: var(--red); background: var(--red); color: #fff; font-weight: 700; text-decoration: none; }
+.TournamentYearSelect { display: none; }
+
+@media (max-width: 1024px) { .club-nav .container { gap: 14px; overflow-x: auto; }.club-hero, .club-hero .container { min-height: 280px; }.club-hero h1 { font-size: 32px; }.TournamentFilters nav { flex-wrap: wrap; justify-content: center; }.Pagination, .detail-pager { margin-bottom: 40px; } }
+.gallery-card-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 992px) and (max-width: 1199px) { .container, .shell { width: 970px; } }
+
+/* MAF editorial UI refresh: retain legacy selectors so every route keeps its data and media. */
+:root { color-scheme: dark; --red: #a10000; --red-hover: #d41414; --accent: #d41414; --ink: #050505; --panel: #151517; --soft: #a7a7a7; --line: rgba(255,255,255,.18); }
+html, body { background: var(--ink); color: #f5f5f5; }
+body { font-family: "DM Sans", "Open Sans", sans-serif; line-height: 1.6; }
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+.site-header { border-bottom: 1px solid var(--line); background: rgba(5,5,5,.92); box-shadow: none; backdrop-filter: blur(14px); }
+.site-nav { position: relative; min-height: 78px; padding: 14px 0; }
+.brand { width: 223px; flex-direction: row; align-items: center; gap: 10px; }
+.brand img { width: 53px; height: 46px; }
+.brand-copy { display: flex; width: 160px; flex-direction: column; }
+.brand-name, .brand-tagline { display: block; width: 100%; }
+.nav-links { position: absolute; left: 50%; display: flex; gap: 40px; color: #d8d8d8; font-family: "DM Mono", monospace; font-size: 15px; letter-spacing: .08em; transform: translateX(-50%); }
+.nav-links a:hover, .nav-links .active { color: #fff; }
+.header-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.language { min-width: 42px; height: 34px; border: 1px solid var(--red); background: var(--red); font-family: "DM Mono", monospace; line-height: 32px; }
+.language:hover { border-color: var(--red-hover); background: var(--red-hover); color: #fff; }
+.menu-toggle { display: none; width: 38px; height: 34px; padding: 0; border: 1px solid var(--red); background: transparent; color: #fff; cursor: pointer; font-size: 20px; line-height: 30px; }
+main { padding-top: 78px; }
+.Carusel { position: relative; min-height: 620px; max-height: none; height: 62vw; margin-bottom: 0; background: linear-gradient(180deg, rgba(5,5,5,.12), var(--ink)), var(--media-background) center / cover no-repeat; }
+.Carusel .titleWr { justify-content: flex-start; align-items: flex-end; padding: 0 max(15px, calc((100% - 1170px) / 2)) 90px; }
+.Carusel .title { max-width: 900px; margin: 0; padding: 0; border: 0; background: none; color: var(--red-hover); font-size: clamp(72px, 11vw, 170px); line-height: .86; text-align: left; text-shadow: none; }
+.AboutBox { margin: 0; padding: 112px 0; border-top: 1px solid var(--line); }
+.AboutBox .image { border: 1px solid #303033; filter: grayscale(1); }
+.AboutBox .desc { border: 1px solid #303033; background: var(--panel); color: #c8c8c8; font-size: 15px; }
+.about-learn-more, .country, .cityList a, .tournament-info h3, .news-item-title, .gallery-heading, .article-more, .HomeNews a, .testimonial-label { color: var(--red-hover); }
+.Title { padding: 112px 0 44px; }
+.title_name, .archive-title h1, .detail-hero h1, .article-section-title, .gallery-heading, .country, .tournament-info h3, .news-item-title { text-shadow: none; }
+.title_name { font-size: 46px; }
+.lineDef { border-color: var(--line); }
+.left_line:before, .right_line:before { background: var(--red); }
+.HomeGallery, .HomeVideoGallery, .NewsList, .HomeArticles, .ClubsPage { margin-bottom: 0; }
+.gallery-slide, .video-slide, .gallery-card-pic, .PhotoGrid a, .tournament-media, .news-detail-image { border: 1px solid #303033; background-color: var(--panel); }
+.gallery-slide-title, .video-slide-title { background: rgba(5,5,5,.86); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .04em; }
+.HomeArticles { padding-bottom: 112px; }
+.article-tile { border: 1px solid #303033; border-top: 3px solid var(--red); background: linear-gradient(rgba(5,5,5,.72), rgba(5,5,5,.72)), var(--media-background) center / cover no-repeat; color: #f5f5f5; }
+.article-tile:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.article-author { display: block; margin-bottom: 4px; color: #fff; font-size: 17px; font-weight: 700; letter-spacing: .04em; }
+.ArticlesPage .MainCont > div > p:has(strong) { margin: 56px 0 18px; color: #f5f5f5; font-family: "Yeseva One", Georgia, serif; font-size: 28px; }
+.ArticlesPage .MainCont > div > p:has(strong):first-child { margin-top: 0; }
+.ArticlesPage .MainCont > div > p:not(:has(strong)):not(:has(a)) { display: none; }
+.ArticlesPage .MainCont br { display: none; }
+.ArticlesPage .MainCont ul { display: grid; grid-auto-rows: 190px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 34px; padding: 0; list-style: none; }
+.ArticlesPage .MainCont li { display: flex; height: 100%; box-sizing: border-box; min-height: 0; padding: 22px; flex-direction: column; justify-content: center; border: 1px solid #303033; border-top: 3px solid var(--red); background: linear-gradient(rgba(5,5,5,.72), rgba(5,5,5,.72)), var(--media-background) center / cover no-repeat; }
+.ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.ArticlesPage .MainCont li a { display: block; color: #f5f5f5; font-family: "Yeseva One", Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.35; text-decoration: none; }
+.ArticlesPage .MainCont li a:after { display: block; margin-top: 20px; color: var(--red-hover); content: "->"; font-family: "DM Mono", monospace; font-size: 18px; }
+.ArticlesPage .MainCont li:hover a:after { color: #fff; }
+.HomeNews { padding-bottom: 70px; }
+.HomeNews a, .News_item, .tournament-item, .event-list article { border-color: var(--line); }
+.HomeTestimonials { padding: 70px 0 112px; border-top: 1px solid var(--line); background: linear-gradient(135deg, #242426, #0d0d0e); }
+.HomeTestimonials article { text-align: left; }
+.HomeTestimonials article p, .news-desc, .desc, .MainCont { color: #c4c4c4; }
+.archive-title { padding-top: 90px; text-shadow: none; }
+.archive-title h1 { color: var(--red-hover); font-family: "Yeseva One", Georgia, serif; }
+.detail-hero h1 { color: #fff; font-family: "Yeseva One", Georgia, serif; }
+.archive-subtitle { margin: 22px 0 34px; color: #fff; font: 400 30px/1.2 "Yeseva One", Georgia, serif; letter-spacing: 0; }
+.descWr .warn { color: #fff; }
+.page-line, .date, .news-date { border-color: var(--line); }
+.country-pic { border: 1px solid #303033; }
+.tournament-media { margin-right: 40px; }
+.tournament-info h3, .news-item-title { font-size: 29px; }
+.empty { border-left-color: var(--red); background: rgba(161,0,0,.18); color: #fff; }
+.detail-hero { background-color: #151517; background-image: var(--media-background); }
+.detail-section { border-color: var(--line); }
+.detail-section h2 { color: var(--red-hover); }
+.rating-panel, .schedule-table { border-color: #303033; box-shadow: none; background: var(--panel); }
+.rating-toolbar { background: var(--red); }
+.rating-table tbody tr:nth-child(even), .schedule-table tbody tr:nth-child(even) { background: rgba(255,255,255,.04); }
+.site-footer { border-top: 1px solid var(--line); background: var(--ink); color: #777; }
+.footer-brand { color: var(--red-hover); font-family: "Yeseva One", Georgia, serif; }
+
+.WorldCupHistory { padding-bottom: 64px; }
+.WorldCupHistory .MainCont { max-width: 1120px; margin: 0 auto; color: #c4c4c4; }
+.WorldCupHistory .MainCont > div:first-child { margin-bottom: 18px; }
+.WorldCupHistory .MainCont > div:first-child h2 { margin: 0; color: #fff; font: 400 30px/1.2 "Yeseva One", Georgia, serif; }
+.WorldCupHistory .MainCont > div:nth-child(2) { max-width: 760px; margin: 0 auto 34px; text-align: center; }
+.WorldCupHistory .MainCont > div:nth-child(2) p { margin: 0; font-size: 16px; line-height: 1.75; }
+.WorldCupHistory .MainCont blockquote { max-width: 760px; margin: 0 auto 54px; padding: 24px 28px; border-left: 3px solid var(--red); background: var(--panel); color: #f1f1f1; font: 400 21px/1.5 "Yeseva One", Georgia, serif; }
+.WorldCupHistory .MainCont blockquote cite { display: block; margin-top: 14px; color: var(--soft); font: 400 12px/1.5 "DM Mono", monospace; }
+.WorldCupHistory .MainCont > div:last-child > ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 0; padding: 0; list-style: none; }
+.WorldCupHistory .MainCont > div:last-child > ul > li { display: flex; min-width: 0; min-height: 350px; flex-direction: column; overflow: hidden; border: 1px solid #303033; background: var(--panel); transition: border-color .2s ease, transform .2s ease; }
+.WorldCupHistory .MainCont > div:last-child > ul > li:hover, .WorldCupHistory .MainCont > div:last-child > ul > li:focus-within { border-color: var(--red-hover); transform: translateY(-4px); }
+.WorldCupHistory .MainCont > div:last-child > ul > li > a:first-child { display: block; height: 190px; flex: 0 0 190px; overflow: hidden; background: #242426; }
+.WorldCupHistory .MainCont > div:last-child > ul img { display: block; width: 100%; height: 100% !important; margin: 0; object-fit: cover; transition: transform .3s ease; }
+
+/* Python serves the shared legacy assets during local development. */
+.Carusel { background-image: var(--media-background); }
+.AboutBox .image { background-image: url("/assets/images/system/missing-media.svg"); }
+.country-pic, .gallery-card-pic { background-image: url("/assets/images/system/missing-media.svg"); }
+.detail-hero { background-image: var(--media-background); }
+.article-tile, .ArticlesPage .MainCont li { background-image: var(--media-background); }
+.article-tile:hover, .ArticlesPage .MainCont li:hover { background: linear-gradient(rgba(161,0,0,.78), rgba(161,0,0,.78)), var(--media-background) center / cover no-repeat; }
+.WorldCupHistory .MainCont > div:last-child > ul > li:hover img { transform: scale(1.04); }
+.WorldCupHistory .MainCont > div:last-child > ul h3 { margin: 0; padding: 20px 20px 8px; color: var(--red-hover); font: 400 21px/1.25 "Yeseva One", Georgia, serif; }
+.WorldCupHistory .MainCont > div:last-child > ul h3 a { color: inherit; text-decoration: none; }
+.WorldCupHistory .MainCont > div:last-child > ul p { margin: auto 0 0; padding: 0 20px 20px; color: var(--soft); font: 400 12px/1.5 "DM Mono", monospace; }
+.WorldCupHistory .MainCont > div:last-child > ul p a { color: inherit; text-decoration: none; }
+.WorldCupHistory .MainCont a:hover, .WorldCupHistory .MainCont a:focus { color: #fff; }
+.WorldCupHistoryChild { padding-bottom: 80px; }
+.WorldCupHistoryChild .MainCont { max-width: 1120px; margin: 0 auto; color: #c4c4c4; font-size: 15px; line-height: 1.7; }
+.WorldCupHistoryChild .MainCont > div { margin: 0 0 64px; }
+.WorldCupHistoryChild .MainCont > div:first-child { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 34px; align-items: start; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:first-child { padding: 26px 28px; border-top: 3px solid var(--red); background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:first-child > div:first-child h2, .WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) h2, .WorldCupHistoryChild .MainCont > div:nth-child(3) h2 { margin: 0 0 20px; color: var(--red-hover); font: 400 29px/1.2 "Yeseva One", Georgia, serif; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:first-child h3 { margin: 8px 0; color: #fff; font: 400 18px/1.4 "Yeseva One", Georgia, serif; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) { display: grid; grid-template-columns: minmax(220px, .9fr) minmax(0, 1.1fr); gap: 28px; align-items: start; counter-reset: top-player; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:first-child { overflow: hidden; border: 1px solid #303033; background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:first-child img { display: block; width: 100%; height: 300px !important; margin: 0; object-fit: cover; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:nth-child(2) { padding-top: 4px; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:nth-child(2) h3 { display: flex; align-items: center; gap: 14px; min-height: 48px; margin: 0; padding: 10px 14px; border-top: 1px solid #2f3033; border-right: 1px solid #2f3033; border-bottom: 0; border-left: 3px solid var(--red); background: #171719; color: #f1f1f1; font: 400 14px/1.3 "DM Mono", monospace; counter-increment: top-player; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:nth-child(2) h3:nth-of-type(even) { background: rgba(255,255,255,.04); }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) > div:nth-child(2) h3::before { width: 24px; color: var(--red-hover); content: counter(top-player, decimal-leading-zero); font-weight: 700; }
+.WorldCupHistoryChild .MainCont > div:nth-child(2) { display: none; }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) { padding-top: 32px; border-top: 1px solid var(--line); }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) > div { min-height: 92px; padding: 20px; border: 1px solid #303033; background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) p { position: relative; display: flex; min-height: 150px; align-items: flex-end; margin: 0; padding: 18px; border: 1px solid #303033; background: #242426; color: #fff; font: 400 14px/1.4 "DM Mono", monospace; }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) p:before { position: absolute; top: 50%; left: 50%; color: var(--red-hover); content: "▶"; font-size: 34px; transform: translate(-50%, -65%); }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) p > a { display: flex; min-height: 114px; flex: 1; align-items: flex-end; color: #fff; text-decoration: none; }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) p > a:hover, .WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) p > a:focus { color: var(--red-hover); }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) > div:has(iframe) { padding: 0; border: 1px solid #303033; background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) > div:has(iframe) h4 { margin: 0; padding: 14px 16px; color: #fff; font: 400 14px/1.3 "DM Mono", monospace; }
+.WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2) > div:has(iframe) iframe { min-height: 220px; border: 0; }
+.WorldCupHistoryChild .world-cup-playlist { width: min(100%, 760px); margin: 0 auto 24px; padding: 8px; border: 1px solid #303033; background: var(--panel); }
+.WorldCupHistoryChild .world-cup-playlist iframe { display: block; width: 100%; aspect-ratio: 16 / 9; min-height: 0; border: 0; }
+.WorldCupHistoryChild .MainCont > div:nth-child(4) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 0; padding-top: 28px; border-top: 1px solid var(--line); }
+.WorldCupHistoryChild .MainCont > div:nth-child(4)::before { grid-column: 1 / -1; color: var(--red-hover); content: "MISC"; font: 400 29px/1.2 "Yeseva One", Georgia, serif; }
+.WorldCupHistoryChild .MainCont > div:nth-child(4) > div { padding: 18px 20px; border-left: 3px solid var(--red); background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:nth-child(4) p { margin: 0; }
+.WorldCupHistoryChild .MainCont a { color: var(--red-hover); font-weight: 700; }
+.WorldCupHistoryChild .MainCont img { max-width: 100%; border: 1px solid #303033; background: var(--panel); }
+.WorldCupHistoryChild .MainCont > div:first-child { display: grid; grid-template-columns: minmax(220px, .9fr) minmax(0, 1.1fr); gap: 28px; max-width: 900px; margin-right: auto; margin-left: auto; }
+.WorldCupHistoryChild .MainCont > div:first-child > h2 { grid-column: 1 / -1; margin: 0; padding: 14px 16px; background: var(--red); color: #fff; font: 700 12px/1.2 "DM Mono", monospace; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) { min-width: 0; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(3) { padding-top: 4px; counter-reset: top-player; }
+.WorldCupHistoryChild .world-cup-player-header { display: grid; grid-template-columns: 52px minmax(0, 1fr); padding: 14px 14px; background: var(--red); color: #fff; font: 700 11px/1.3 "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(3) h3 { display: flex; align-items: center; gap: 14px; min-height: 48px; margin: 0; padding: 12px 14px; border-top: 1px solid #2f3033; border-right: 1px solid #2f3033; border-bottom: 1px solid #2f3033; border-left: 3px solid var(--red); background: #171719; color: #f1f1f1; font: 400 14px/1.3 "DM Mono", monospace; counter-increment: top-player; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(3) h3:nth-of-type(even) { background: rgba(255,255,255,.04); }
+.WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(3) h3::before { width: 24px; color: var(--red-hover); content: counter(top-player, decimal-leading-zero); font-weight: 700; }
+.WorldCupHistoryChild .MainCont table { width: 100%; margin: 28px 0 36px; border-collapse: separate; border-spacing: 0 6px; }
+.WorldCupHistoryChild .MainCont th { padding: 13px 14px; background: var(--red); color: #fff; font: 700 11px/1.3 "DM Mono", monospace; letter-spacing: .04em; text-align: left; text-transform: uppercase; }
+.WorldCupHistoryChild .MainCont td { padding: 12px 14px; border-top: 1px solid #303033; border-bottom: 1px solid #303033; background: var(--panel); color: #ddd; }
+.WorldCupHistoryChild .MainCont tbody tr { background: #171719; }
+.WorldCupHistoryChild .MainCont tbody tr:nth-child(even) { background: rgba(255,255,255,.04); }
+.WorldCupHistoryChild .MainCont tbody td:first-child { width: 52px; border-left: 3px solid var(--red); color: #fff; font-weight: 700; text-align: center; }
+.WorldCupHistoryChild .MainCont thead th:first-child { width: 52px; text-align: center; }
+.WorldCupHistoryChild .MainCont iframe, .WorldCupHistoryChild .MainCont video { display: block; width: 100%; min-height: 260px; border: 1px solid #303033; background: #111; }
+.GameRulesPage { padding-bottom: 80px; }
+.GameRulesPage .MainCont { max-width: 980px; margin: 0 auto; color: #c4c4c4; font-size: 16px; line-height: 1.8; }
+.GameRulesPage .MainCont > h1 { clear: both; margin: 54px 0 20px; padding: 18px 0 12px; border-top: 1px solid var(--line); color: #fff; font: 400 30px/1.25 "Yeseva One", Georgia, serif; }
+.GameRulesPage .MainCont > h1:first-of-type { margin-top: 0; }
+.GameRulesPage .MainCont h3 { margin: 34px 0 10px; color: var(--red-hover); font: 400 22px/1.3 "Yeseva One", Georgia, serif; }
+.GameRulesPage .MainCont h3 strong { font-weight: 400; }
+.GameRulesPage .MainCont p { margin: 0 0 17px; overflow-wrap: anywhere; }
+.GameRulesPage .MainCont strong { color: #f3f3f3; font-weight: 700; }
+.GameRulesPage .MainCont table { width: 100% !important; max-width: 100%; margin: 28px 0 36px; table-layout: fixed; border: 0; border-collapse: separate; border-spacing: 0 6px; }
+.GameRulesPage .MainCont thead th { padding: 14px 16px; background: var(--red); color: #fff; font: 700 12px/1.2 "DM Mono", monospace; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+.GameRulesPage .MainCont tbody tr { background: #171719; }
+.GameRulesPage .MainCont tbody th, .GameRulesPage .MainCont tbody td { border-top: 1px solid #2f3033; border-bottom: 1px solid #2f3033; }
+.GameRulesPage .MainCont tbody th { border-left: 3px solid var(--red); color: #fff; font-weight: 700; text-align: left; }
+.GameRulesPage .MainCont tbody td:last-child { border-right: 1px solid #2f3033; }
+.GameRulesPage .MainCont th, .GameRulesPage .MainCont td { padding: 14px 16px; overflow-wrap: anywhere; vertical-align: middle; }
+.GameRulesPage .MainCont table:not(:has(thead)) td:first-child { color: #fff; font-weight: 700; }
+.GameRulesPage .MainCont table:not(:has(thead)) td:last-child { color: var(--red-hover); font-family: "DM Mono", monospace; font-weight: 700; text-align: right; }
+.GameRulesPage .MainCont table:has(thead) tbody td { color: var(--red-hover); font-family: "DM Mono", monospace; font-weight: 700; text-align: center; }
+.GameRulesPage .MainCont table:has(thead) thead th:not(:first-child) { text-align: center; }
+.GameRulesPage .MainCont img { display: block; width: auto !important; height: auto !important; max-width: 38%; border: 1px solid #303033; background: var(--panel); object-fit: contain; }
+.GameRulesPage .MainCont a { color: var(--red-hover); }
+.GameRulesPage .MainCont a:hover, .GameRulesPage .MainCont a:focus { color: #fff; }
+.GameRulesPage .MainCont [id^="rule-"] { scroll-margin-top: 91px; }
+.HistoryPage .MainCont img[style*="float:left"] { margin: 0 28px 18px 0 !important; }
+.HistoryPage .MainCont img[style*="float:right"] { margin: 0 0 18px 28px !important; }
+
+@media (max-width: 1024px) {
+  .shell, .container { width: calc(100% - 30px); }
+  .site-nav { min-height: 68px; align-items: center; flex-direction: row; padding: 10px 0; }
+  .site-header { height: 68px; }
+  .brand { width: 217px; }
+  .brand img { width: 47px; height: auto; }
+  .brand-name { font-size: 24px; line-height: 25px; }
+  .brand-tagline { font-size: 10px; line-height: 13px; }
+  .TournamentYearButtons { display: none !important; }
+  .TournamentYearSelect { display: block; width: 100%; min-height: 46px; padding: 10px 44px 10px 14px; border: 1px solid var(--red); border-radius: 0; background: var(--panel); color: #fff; font: 700 13px/24px "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
+  .header-actions { margin-left: auto; }
+  .site-nav::after { content: none; }
+  .menu-toggle { display: block; }
+  .language { position: static; }
+  .nav-links { top: 68px; right: 15px; left: 15px; display: none; padding: 20px; flex-direction: column; align-items: stretch; gap: 18px; border: 1px solid #303033; background: rgba(10,10,10,.98); transform: none; }
+  .nav-links.is-open { display: flex; }
+  .game-menu:hover .game-submenu, .game-menu:focus-within .game-submenu, .tournaments-menu:hover .tournaments-submenu, .tournaments-menu:focus-within .tournaments-submenu { display: none; }
+  main { padding-top: 68px; }
+  .Carusel { min-height: 560px; height: 150vw; }
+  .Carusel .titleWr { padding: 0 15px 56px; }
+  .Carusel .title { font-size: clamp(58px, 18vw, 100px); }
+  .AboutBox { padding: 76px 0; }
+  .AboutBox .desc { padding: 28px 22px; }
+  .Title { padding-top: 76px; }
+  .title_name { font-size: 32px; }
+  .HomeArticles { padding-bottom: 76px; }
+  .article-grid, .ArticlesPage .MainCont ul, .GalleryList, .PhotoGrid { grid-template-columns: 1fr; }
+  .ArticlesPage .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .article-tile { min-height: 0; }
+  .tournament-media { margin-right: 0; }
+  .footer-inner { align-items: flex-start; flex-direction: column; }
+  .WorldCupHistory { padding-bottom: 36px; }
+  .WorldCupHistory .MainCont > div:first-child h2 { font-size: 25px; }
+  .WorldCupHistory .MainCont > div:nth-child(2) { text-align: left; }
+  .WorldCupHistory .MainCont blockquote { margin-bottom: 36px; padding: 20px; font-size: 18px; }
+  .WorldCupHistory .MainCont > div:last-child > ul { grid-template-columns: 1fr; gap: 16px; }
+  .WorldCupHistory .MainCont > div:last-child > ul > li { min-height: 0; }
+  .WorldCupHistoryChild { padding-bottom: 36px; }
+  .WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) { grid-template-columns: 1fr; gap: 20px; }
+  .WorldCupHistoryChild .MainCont > div:first-child > div:nth-child(2) img { height: auto !important; max-height: 300px; }
+  .WorldCupHistoryChild .MainCont > div:nth-child(3) > div:nth-child(2), .WorldCupHistoryChild .MainCont > div:nth-child(4) { grid-template-columns: 1fr; }
+  .WorldCupHistoryChild .MainCont > div:first-child > div:first-child { padding: 20px; }
+  .GameRulesPage { padding-bottom: 36px; }
+  .GameRulesPage .MainCont { font-size: 15px; line-height: 1.7; }
+  .GameRulesPage .MainCont > h1 { margin-top: 38px; font-size: 25px; }
+  .GameRulesPage .MainCont h3 { margin-top: 28px; font-size: 20px; }
+  .GameRulesPage .MainCont th, .GameRulesPage .MainCont td { padding: 8px 5px; font-size: 12px; }
+  .GameRulesPage .MainCont img { float: none !important; width: auto !important; max-width: 100%; margin: 20px auto !important; }
+  .HistoryPage .MainCont img[style*="float:left"], .HistoryPage .MainCont img[style*="float:right"] { margin: 20px auto !important; }
+  .GameRulesPage .MainCont [id^="rule-"] { scroll-margin-top: 84px; }
+}
+
+@media (max-width: 495px) {
+  .brand { width: 47px; }
+  .brand-copy { display: none; }
+}
+
+.PhotoGrid img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+.PhotoGalleryWidget { margin-bottom: 70px; }
+.PhotoGalleryWidget .image-gallery { border: 1px solid #303033; background: var(--panel); }
+.PhotoGalleryWidget .image-gallery-slide-wrapper { background: #050505; }
+.PhotoGalleryWidget .image-gallery-slide img { display: block; width: auto; max-width: 100%; height: min(62vh, 620px); margin: 0 auto; object-fit: contain; object-position: center; }
+.PhotoGalleryWidget .image-gallery-thumbnails { padding: 12px 8px; background: var(--panel); }
+.PhotoGalleryWidget .image-gallery-thumbnail { width: 130px; border: 1px solid #303033; }
+.PhotoGalleryWidget .image-gallery-thumbnail.active, .PhotoGalleryWidget .image-gallery-thumbnail:hover { border-color: var(--red-hover); }
+@media (max-width: 600px) { .PhotoGalleryWidget .image-gallery-slide img { height: 46vh; }.PhotoGalleryWidget .image-gallery-thumbnail { width: 88px; } }
+
+.WorldCupHistoryChild .MainCont > div:first-child > div:first-child { grid-column: 1 / -1; width: min(100%, 760px); margin-right: auto; margin-left: auto; padding-right: 0; padding-left: 0; }
+.WorldCupHistoryChild .MainCont > div:first-child > div:first-child > div:nth-child(2) h2 { text-align: center; }
+.WorldCupHistoryChild .world-cup-photos { margin: 0 0 64px; padding-top: 32px; border-top: 1px solid var(--line); }
+.WorldCupHistoryChild .world-cup-photos h2 { margin: 0 0 20px; color: var(--red-hover); font: 400 29px/1.2 "Yeseva One", Georgia, serif; text-align: center; }
+.WorldCupHistoryChild .world-cup-photos .PhotoGalleryWidget { width: min(100%, 760px); margin: 0 auto; }
+.WorldCupHistoryChild .world-cup-video-section { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 0; padding-top: 28px; border-top: 1px solid var(--line); }
+.WorldCupHistoryChild .world-cup-video-section h2 { grid-column: 1 / -1; margin: 0 0 20px; color: var(--red-hover); font: 400 29px/1.2 "Yeseva One", Georgia, serif; }
+.WorldCupHistoryChild .world-cup-video-section .world-cup-playlist { grid-column: 1 / -1; }
+@media (max-width: 600px) { .WorldCupHistoryChild .world-cup-video-section { grid-template-columns: 1fr; } }

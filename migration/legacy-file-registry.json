@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "purpose": "Track preserved Laravel files and data while FastAPI and Next.js become authoritative.",
+  "policy": "Registry entries identify preserved archive snapshots, retained live data, and deferred migrations. Never delete an entry or live data without explicit approval.",
+  "entries": [
+    {
+      "path": "app/Http/Controllers/TournamentController.php",
+      "status": "archived",
+      "archive": "archive/laravel-application/app/Http/Controllers/TournamentController.php",
+      "reason": "Tournament and rating orchestration will move to backend/app/ratings and API modules.",
+      "replacement": "backend/app/ratings/"
+    },
+    {
+      "path": "app/Http/Controllers/ClubController.php",
+      "status": "archived",
+      "archive": "archive/laravel-application/app/Http/Controllers/ClubController.php",
+      "reason": "Club and global rating reads will move to the Python API.",
+      "replacement": "backend/app/api/clubs.py"
+    },
+    {
+      "path": "app/Helpers.php",
+      "status": "archived",
+      "archive": "archive/laravel-application/app/Helpers.php",
+      "reason": "Prima nota and legacy content-link helpers will be replaced by domain services or data migration code.",
+      "replacement": "backend/app/ratings/"
+    },
+    {
+      "path": "resources/views/",
+      "status": "archived",
+      "archive": "archive/laravel-application/views/",
+      "reason": "Blade views are replaced incrementally by the Next.js frontend after route parity is verified.",
+      "replacement": "frontend/app/"
+    },
+    {
+      "path": "resources/assets/",
+      "status": "retained-live",
+      "reason": "Legacy Gulp/Vue assets are replaced by the Next.js build once equivalent pages are covered.",
+      "replacement": "frontend/"
+    },
+    {
+      "path": "gulpfile.js",
+      "status": "archived",
+      "archive": "archive/legacy-gulp-build/gulpfile.js",
+      "reason": "The legacy Gulp 3 build is not used by the new frontend.",
+      "replacement": "frontend/package.json"
+    },
+    {
+      "path": "routes/web.php",
+      "status": "archived",
+      "archive": "archive/laravel-routing/routes/",
+      "reason": "Laravel routes remain active during parallel rollout and can be retired after URL parity.",
+      "replacement": "backend/app/api/ and frontend/app/"
+    },
+    {
+      "path": "app/Http/Controllers/Admin/",
+      "status": "archived-excluded-feature",
+      "archive": "archive/laravel-application/app/Http/Controllers/Admin/",
+      "reason": "Backpack CMS/admin is outside the reduced Python scope.",
+      "replacement": null
+    },
+    {
+      "path": "app/Http/Controllers/PaymentController.php",
+      "status": "archived-excluded-feature",
+      "archive": "archive/laravel-application/app/Http/Controllers/PaymentController.php",
+      "reason": "Shop and payment are outside the reduced Python scope.",
+      "replacement": null
+    },
+    {
+      "path": "app/Http/Controllers/ProductController.php",
+      "status": "archived-excluded-feature",
+      "archive": "archive/laravel-application/app/Http/Controllers/ProductController.php",
+      "reason": "Shop and cart are outside the reduced Python scope.",
+      "replacement": null
+    },
+    {
+      "path": "app/User.php",
+      "status": "archived-excluded-feature",
+      "archive": "archive/laravel-application/app/User.php",
+      "reason": "Authentication and personal profiles are outside the reduced Python scope; preserve only if retained data references require it.",
+      "replacement": null
+    },
+    {
+      "path": "database/database.sqlite",
+      "status": "retain-source-of-truth",
+      "reason": "Required retained SQLite database. Never delete or recreate during parallel migration.",
+      "replacement": null
+    }
+  ]
+}

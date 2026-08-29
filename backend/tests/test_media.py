@@ -1,0 +1,36 @@
+from pathlib import Path
+
+from app.media import MediaStorage
+from app.settings import Settings
+
+
+def test_local_storage_uses_configured_asset_root(tmp_path: Path) -> None:
+    settings = Settings(media_local_root=tmp_path / "canonical-assets")
+    storage = MediaStorage(settings)
+
+    storage.put("images/uploads/example.jpg", b"image-data")
+
+    assert (tmp_path / "canonical-assets" / "images" / "uploads" / "example.jpg").read_bytes() == b"image-data"
+    assert storage.url("images/uploads/example.jpg") == "/assets/images/uploads/example.jpg"
+
+
+def test_legacy_compatibility_setting_controls_url_shape(tmp_path: Path) -> None:
+    compatible = MediaStorage(
+        Settings(media_local_root=tmp_path / "assets", media_legacy_compatibility=True)
+    )
+    canonical_only = MediaStorage(
+        Settings(media_local_root=tmp_path / "assets", media_legacy_compatibility=False)
+    )
+
+    assert compatible.url("uploads/example.jpg") == "/uploads/example.jpg"
+    assert canonical_only.url("uploads/example.jpg") == "/assets/images/uploads/example.jpg"
+
+
+def test_configured_legacy_root_is_independent_from_asset_root(tmp_path: Path) -> None:
+    settings = Settings(
+        media_local_root=tmp_path / "canonical-assets",
+        media_legacy_root=tmp_path / "legacy-public",
+    )
+
+    assert settings.media_local_root == tmp_path / "canonical-assets"
+    assert settings.media_legacy_root == tmp_path / "legacy-public"

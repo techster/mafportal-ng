@@ -1,0 +1,13 @@
+.git
+.gitignore
+node_modules
+bower_components
+vendor
+storage/logs
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+public/uploads/*
+dbBackups
+*.swp
+*.log

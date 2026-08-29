@@ -1,0 +1,81 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start FastAPI backend",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"uvicorn",
+				"app.main:app",
+				"--app-dir",
+				"${workspaceFolder}\\backend",
+				"--reload",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8001"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\backend"
+			},
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run backend tests",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-n",
+				"auto"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\backend"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\frontend"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Run frontend UI tests",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"test:ui"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\frontend"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Restart FastAPI backend",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\restart-uvicorn-temp.ps1"
+			],
+			"problemMatcher": []
+		}
+	]
+}
