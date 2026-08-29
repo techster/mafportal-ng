@@ -47,8 +47,8 @@ def test_admin_lists_legacy_tournament_resource() -> None:
 
 
 def test_image_url_normalizes_legacy_upload_paths() -> None:
-    assert _image_url("admin\\/photos\\/gallery.jpg") == "/assets/images/uploads/admin/photos/gallery.jpg"
-    assert _image_url("/uploads/admin/photos/gallery.jpg") == "/assets/images/uploads/admin/photos/gallery.jpg"
+    assert _image_url("admin\\/photos\\/gallery.jpg") == "/assets/images/admin/photos/gallery.jpg"
+    assert _image_url("/uploads/admin/photos/gallery.jpg") == "/assets/images/admin/photos/gallery.jpg"
     assert _image_url("gallery.jpg") is None
 
 
@@ -56,8 +56,8 @@ def test_gallery_images_parses_legacy_json_paths() -> None:
     value = json.dumps(["admin/photos/one.jpg", "admin/photos/two.jpg"])
 
     assert _gallery_images(value) == [
-        "/assets/images/uploads/admin/photos/one.jpg",
-        "/assets/images/uploads/admin/photos/two.jpg",
+        "/assets/images/admin/photos/one.jpg",
+        "/assets/images/admin/photos/two.jpg",
     ]
     assert _gallery_images("not json") == []
 

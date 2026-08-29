@@ -6,12 +6,14 @@ export function assetUrl(value: string | null | undefined): string | undefined {
   if (!value) return undefined;
   if (value.startsWith("http://") || value.startsWith("https://")) return value;
   const path = value.replace(/^\/(?:en|ru)(?=\/uploads\/)/i, "").replace(/^\//, "");
-  if (path.startsWith("images/uploads/") || path.startsWith("images/avatars/") || path.startsWith("images/system/") || path.startsWith("images/build/") || path.startsWith("videos/")) return `${MEDIA_URL.replace(/\/$/, "")}/${path}`;
-  if (path.startsWith("uploads/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/uploads/${path.slice(8)}`;
-  if (path.startsWith("avatars/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/avatars/${path.slice(8)}`;
-  if (path.startsWith("images/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/system/${path.slice(7)}`;
+  if (path.startsWith("images/uploads/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/${path.slice(15)}`;
+  if (path.startsWith("images/avatars/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/users/avatar/${path.slice(15)}`;
+  if (path.startsWith("images/system/")) return `${MEDIA_URL.replace(/\/$/, "")}/system/${path.slice(14)}`;
+  if (path.startsWith("images/") || path.startsWith("system/") || path.startsWith("videos/")) return `${MEDIA_URL.replace(/\/$/, "")}/${path}`;
+  if (path.startsWith("uploads/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/${path.slice(8)}`;
+  if (path.startsWith("avatars/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/users/avatar/${path.slice(8)}`;
   if (path.startsWith("build/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/build/${path.slice(6)}`;
-  if (path.startsWith("admin/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/uploads/${path}`;
+  if (path.startsWith("admin/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/admin/${path}`;
   return `${LEGACY_URL}/${path}`;
 }
 

@@ -61,17 +61,21 @@ class MediaStorage:
         if path.startswith("assets/"):
             path = path[7:]
         if path.startswith("uploads/"):
-            return self._safe_key("images/uploads/" + path[8:])
+            return self._safe_key("images/" + path[8:])
         if path.startswith("avatars/"):
-            return self._safe_key("images/avatars/" + path[8:])
-        if path.startswith(("images/uploads/", "images/avatars/", "images/system/", "images/build/", "videos/")):
+            return self._safe_key("images/users/avatar/" + path[8:])
+        if path.startswith("images/uploads/"):
+            return self._safe_key("images/" + path[15:])
+        if path.startswith("images/avatars/"):
+            return self._safe_key("images/users/avatar/" + path[15:])
+        if path.startswith("images/system/"):
+            return self._safe_key("system/" + path[14:])
+        if path.startswith(("images/", "system/", "images/build/", "videos/")):
             return self._safe_key(path)
-        if path.startswith("images/"):
-            return self._safe_key("images/system/" + path[7:])
         if path.startswith("build/"):
             return self._safe_key("images/build/" + path[6:])
         if path.startswith("admin/"):
-            return self._safe_key("images/uploads/" + path)
+            return self._safe_key("images/" + path)
         if parsed.scheme or parsed.netloc:
             return None
         return None
@@ -87,14 +91,14 @@ class MediaStorage:
             return raw if raw.startswith(("http://", "https://")) else None
         if local_legacy is None:
             local_legacy = self.settings.media_legacy_compatibility
-        canonical_input = raw.lstrip("/").startswith(("images/", "videos/", "assets/"))
+        canonical_input = raw.lstrip("/").startswith(("images/", "system/", "videos/", "assets/"))
         if self.backend == "local" and local_legacy and not canonical_input:
-            if key.startswith("images/uploads/"):
-                return "/uploads/" + key.removeprefix("images/uploads/")
-            if key.startswith("images/avatars/"):
-                return "/avatars/" + key.removeprefix("images/avatars/")
-            if key.startswith("images/system/"):
-                return "/images/" + key.removeprefix("images/system/")
+            if key.startswith("images/users/avatar/"):
+                return "/avatars/" + key.removeprefix("images/users/avatar/")
+            if key.startswith("images/"):
+                return "/uploads/" + key.removeprefix("images/")
+            if key.startswith("system/"):
+                return "/images/" + key.removeprefix("system/")
             if key.startswith("images/build/"):
                 return "/build/" + key.removeprefix("images/build/")
         public_key = self._object_key(key) if self.backend in {"spaces", "s3"} else key
