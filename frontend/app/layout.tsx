@@ -14,8 +14,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const mediaBase = process.env.NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL ?? "http://127.0.0.1:8001/assets";
-  const mediaBackground = `url("${mediaBase.replace(/\/$/, "")}/images/uploads/homepage/banners/background_image_cards.jpg")`;
+  const mediaBase = process.env.NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL ?? "/assets";
+  const mediaBackground = `url("${mediaBase.replace(/\/$/, "")}/images/_MG_7550.jpg")`;
   return (
     <html lang="en">
       <head>

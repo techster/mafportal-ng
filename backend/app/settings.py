@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     admin_username: str = "mafportaladmin@gmail.com"
     admin_password: str = "admin"
     admin_session_secret: str = "change-this-admin-session-secret"
+    admin_session_ttl_seconds: int = 28800
+    admin_cookie_secure: bool = False
     media_backend: str = "local"
     media_local_root: Path = PROJECT_ROOT / "assets"
     media_legacy_root: Path = PROJECT_ROOT / "public"

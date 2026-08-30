@@ -11,10 +11,11 @@ type MediaImageProps = {
 };
 
 export default function MediaImage({ src, fallback, alt, className }: MediaImageProps) {
+  const resolvedSrc = assetUrl(src);
   const fallbackSrc = assetUrl(fallback);
-  const [currentSrc, setCurrentSrc] = useState(src ?? fallbackSrc);
+  const [currentSrc, setCurrentSrc] = useState(resolvedSrc ?? fallbackSrc);
   useEffect(() => {
-    if (src) setCurrentSrc(src);
-  }, [src]);
-  return <img src={currentSrc} alt={alt} className={className} onError={() => fallbackSrc && currentSrc !== fallbackSrc && setCurrentSrc(fallbackSrc)} />;
+    setCurrentSrc(resolvedSrc ?? fallbackSrc);
+  }, [resolvedSrc, fallbackSrc]);
+  return <img src={currentSrc} alt={alt} className={className} decoding="async" onError={() => fallbackSrc && currentSrc !== fallbackSrc && setCurrentSrc(fallbackSrc)} />;
 }

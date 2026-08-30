@@ -1,4 +1,7 @@
 from pathlib import Path
+from io import BytesIO
+
+import pytest
 
 from app.media import MediaStorage
 from app.settings import Settings
@@ -51,3 +54,36 @@ def test_configured_legacy_root_is_independent_from_asset_root(tmp_path: Path) -
 
     assert settings.media_local_root == tmp_path / "canonical-assets"
     assert settings.media_legacy_root == tmp_path / "legacy-public"
+
+
+def test_local_storage_file_lifecycle_uses_only_asset_root(tmp_path: Path) -> None:
+    asset_root = tmp_path / "assets"
+    storage = MediaStorage(Settings(media_local_root=asset_root))
+    stream = BytesIO(b"image-data")
+    stream.read()
+
+    storage.put("images/uploads/test/example.jpg", stream, "image/jpeg")
+
+    stored_path = storage.local_path("images/uploads/test/example.jpg")
+    assert stored_path.read_bytes() == b"image-data"
+    assert storage.verify("images/uploads/test/example.jpg") is True
+
+    storage.delete("images/uploads/test/example.jpg")
+
+    assert stored_path.exists() is False
+    assert storage.verify("images/uploads/test/example.jpg") is False
+
+
+@pytest.mark.parametrize("value", ["../secret.jpg", "images/../../secret.jpg"])
+def test_media_storage_rejects_path_traversal(tmp_path: Path, value: str) -> None:
+    storage = MediaStorage(Settings(media_local_root=tmp_path / "assets"))
+
+    with pytest.raises(ValueError, match="Invalid media key"):
+        storage.put(value, b"not-written")
+
+    assert list(tmp_path.rglob("secret.jpg")) == []
+
+
+def test_media_storage_rejects_unknown_backend(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="must be local or spaces"):
+        MediaStorage(Settings(media_backend="ftp", media_local_root=tmp_path))

@@ -243,6 +243,7 @@ MAFPORTAL_DATABASE_URL=sqlite:////opt/mafportal-ng/database/database.sqlite
 MAFPORTAL_ADMIN_USERNAME=admin@example.com
 MAFPORTAL_ADMIN_PASSWORD=<LONG_RANDOM_ADMIN_PASSWORD>
 MAFPORTAL_ADMIN_SESSION_SECRET=<LONG_RANDOM_SECRET>
+MAFPORTAL_ADMIN_COOKIE_SECURE=true
 MAFPORTAL_MEDIA_BACKEND=local
 MAFPORTAL_MEDIA_LOCAL_ROOT=/opt/mafportal-ng/assets
 ```
@@ -346,17 +347,17 @@ permission error. Save in Nano with `Ctrl+O`, press `Enter`, then exit with
 `Ctrl+X`.
 
 Use internal URLs because Next.js server-side rendering calls the backend
-locally. With no DNS record, use the Droplet IP for browser-visible media:
+locally. Local media uses the same-origin `/assets` path and is routed to the
+backend by Nginx, so it does not need a browser-visible host name:
 
 ```dotenv
 MAFPORTAL_API_URL=http://127.0.0.1:8001
 MAFPORTAL_LEGACY_URL=http://127.0.0.1:8001
-NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL=http://DROPLET_IP/assets
 ```
 
-`NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL` is embedded during `npm run build`. Changing
-the environment file requires a clean frontend rebuild, not only a service
-restart.
+Set `NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL` only when media is served from Spaces or
+a CDN. It is embedded during `npm run build`, so changing it requires a clean
+frontend rebuild, not only a service restart.
 
 Build the frontend:
 
@@ -443,6 +444,15 @@ server {
     listen 80;
     listen [::]:80;
     server_name portal.example.com DROPLET_IP _;
+
+    location /assets/ {
+        proxy_pass http://127.0.0.1:8001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        add_header Cache-Control "public, max-age=86400" always;
+    }
 
     location /api/ {
         proxy_pass http://127.0.0.1:8001;

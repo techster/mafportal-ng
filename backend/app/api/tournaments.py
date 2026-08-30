@@ -1,12 +1,12 @@
 import json
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import select, text
+from sqlalchemy import bindparam, select, text
 from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.media import media_storage
-from app.models.domain import Club, GameRating, PhotoGallery, Tournament, User, VideoGallery
+from app.models.domain import GameRating, PhotoGallery, Tournament, User, VideoGallery
 from app.ratings.service import calculate_game_scores, calculate_tournament_rating
 from app.schemas import TournamentRead
 
@@ -42,13 +42,20 @@ def get_tournament(slug: str, db: Session = Depends(get_db)) -> dict:
     games = db.scalars(select(GameRating).where(GameRating.tournament_id == tournament.id).order_by(GameRating.id)).all()
     player_ids = {int(player["player"]) for game in games if game.results for player in json.loads(game.results or "[]") if player.get("player") and str(player["player"]).isdigit()}
     users = {user.id: user for user in db.scalars(select(User).where(User.id.in_(player_ids))).all()} if player_ids else {}
-    club_names = {}
-    for user_id, club_id in db.execute(text("select user_id, club_id from club_user")).all() if player_ids else []:
-        if user_id not in player_ids:
-            continue
-        club = db.get(Club, club_id)
-        if club and user_id not in club_names:
-            club_names[user_id] = club.title
+    club_names: dict[int, str] = {}
+    if player_ids:
+        club_query = text(
+            """
+            SELECT club_user.user_id, clubs.title
+            FROM club_user
+            JOIN clubs ON clubs.id = club_user.club_id
+            WHERE club_user.user_id IN :player_ids
+            """
+        ).bindparams(bindparam("player_ids", expanding=True))
+        for user_id, club_title in db.execute(
+            club_query, {"player_ids": sorted(player_ids)}
+        ):
+            club_names.setdefault(user_id, club_title)
     schedule = []
     game_scores = calculate_game_scores(db, tournament.id)
     for game in games:

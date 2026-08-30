@@ -12,8 +12,11 @@ function normalizeContent(content: string, locale: string): string {
       const source = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
       const alt = tag.match(/\balt=["']([^"']+)["']/i)?.[1] ?? "";
       if (!source) return tag;
+      const relativeHistoryFile = source.match(/\.\.\/img\/history\/([^/]+)$/i)?.[1];
       const mapped = alt.startsWith("8th ")
         ? assetUrl("/uploads/maf-world-cup-history/img/8th_mwc.jpg")
+        : relativeHistoryFile
+          ? assetUrl(`/uploads/maf-world-cup-history/img/history/${relativeHistoryFile}`)
         : assetUrl(source);
       return mapped ? tag.replace(source, mapped) : tag;
     })

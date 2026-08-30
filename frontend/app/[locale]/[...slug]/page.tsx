@@ -7,7 +7,11 @@ function normalizeInternalLinks(content: string, pageSlug: string, locale: strin
     .replace(/https?:\/\/(?:www\.)?mafportal\.com(?=\/)/gi, "")
     .replace(/https?:\/\/127\.0\.0\.1:8000\/([^"']+)/gi, (_, path: string) => assetUrl(`/${path}`) || _)
     .replace(/(\bsrc=["'])\/(?:en|ru)\/?(uploads\/[^"']+)/gi, (_, prefix: string, path: string) => `${prefix}${assetUrl(`/${path}`)}`)
-    .replace(/(\bsrc=["'])\/(uploads\/[^"']+)/gi, (_, prefix: string, path: string) => `${prefix}${assetUrl(`/${path}`)}`);
+    .replace(/(\bsrc=["'])\/(uploads\/[^"']+)/gi, (_, prefix: string, path: string) => `${prefix}${assetUrl(`/${path}`)}`)
+    .replace(/(\bsrc=["'])\.\.\/img\/history\/([^"']+)(["'])/gi, (_, prefix: string, file: string, suffix: string) => `${prefix}${assetUrl(`/uploads/maf-world-cup-history/img/history/${file}`)}${suffix}`)
+    .replace(/(\bsrc=["'])(?:\.\.\/)?img\/(?:history\/)?([^"']+)(["'])/gi, (_, prefix: string, file: string, suffix: string) => `${prefix}${assetUrl(`/uploads/maf-world-cup-history/img/${file.split("/").at(-1) ?? file}`)}${suffix}`)
+    .replace(/(\bsrc=["'])\/assets\/images\/maf-world-cup-history\/img\/(?:history\/)?([^"']+)(["'])/gi, (_, prefix: string, file: string, suffix: string) => `${prefix}${assetUrl(`/uploads/maf-world-cup-history/img/${file.split("/").at(-1) ?? file}`)}${suffix}`)
+    .replace(/(\bsrc=["'])\/images\/missing-media\.svg(["'])/gi, `$1${assetUrl("images/53438d2a1105a08374e43dbbc9f8211c.jpg")}$2`);
   const isRussianRulesPage = locale === "ru" && pageSlug === "the-game";
   normalized = normalized.replace(/<img\b[^>]*src=["']http:\/\/127\.0\.0\.1:8000\/uploads\/maf-world-cup-history\/img\/_hero_background_worldcup\.jpg["'][^>]*>/gi, "");
   if (pageSlug === "mafworldcup-history/the-9th-annual-maf-world-cup") {
@@ -127,6 +131,7 @@ export default async function LocalizedGenericPage({ params }: { params: Promise
   const pageClass = pageSlug.startsWith("mafworldcup-history/")
     ? "GenericPage WorldCupHistoryChild"
     : pageSlug === "the-game" ? "GenericPage GameRulesPage" : pageSlug === "history" ? "GenericPage GameRulesPage HistoryPage" : pageSlug === "articles" ? "GenericPage ArticlesPage" : "GenericPage";
+  const articleClass = articleTiles.some((article) => article.slug === pageSlug) ? " ArticlePage" : "";
   const isNinthWorldCup = pageSlug === "mafworldcup-history/the-9th-annual-maf-world-cup";
   const normalizedContent = normalizeInternalLinks(localized.content ?? "", pageSlug, locale);
   const content = (isNinthWorldCup
@@ -152,5 +157,5 @@ export default async function LocalizedGenericPage({ params }: { params: Promise
     originalAlt: `${localized.title} photo`,
     thumbnailAlt: `${localized.title} thumbnail`,
   })) ?? [];
-  return <main className={pageClass}><div className="container"><div className="archive-title"><div className="left_line lineDef" /><h1 className="title_name">{localized.title}</h1>{isNinthWorldCup && <p className="archive-subtitle">August 6-9, 2020</p>}<div className="right_line lineDef" /></div><article className="MainCont"><div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: contentBeforeVideo }} />{photoItems.length > 0 && <section className="world-cup-photos"><h2>{locale === "ru" ? "Фото" : "Photos"}</h2><PhotoGalleryWidget photos={photoItems} title={localized.title} /></section>}{contentFromVideo && <div className="world-cup-video-section" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: contentFromVideo }} />}</article></div></main>;
+  return <main className={`${pageClass}${articleClass}`}><div className="container"><div className="archive-title"><div className="left_line lineDef" /><h1 className="title_name">{localized.title}</h1>{isNinthWorldCup && <p className="archive-subtitle">August 6-9, 2020</p>}<div className="right_line lineDef" /></div><article className="MainCont"><div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: contentBeforeVideo }} />{photoItems.length > 0 && <section className="world-cup-photos"><h2>{locale === "ru" ? "Фото" : "Photos"}</h2><PhotoGalleryWidget photos={photoItems} title={localized.title} /></section>}{contentFromVideo && <div className="world-cup-video-section" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: contentFromVideo }} />}</article></div></main>;
 }

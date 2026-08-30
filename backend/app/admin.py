@@ -6,6 +6,7 @@ import html
 import json
 import secrets
 from datetime import date, datetime
+from time import time
 from typing import Any
 from urllib.parse import parse_qs, urlencode, urlparse
 
@@ -99,7 +100,7 @@ def _signature(value: str) -> str:
 
 
 def _session_token() -> str:
-    payload = f"{settings.admin_username}:{secrets.token_urlsafe(18)}"
+    payload = f"{settings.admin_username}:{int(time())}:{secrets.token_urlsafe(18)}"
     return f"{payload}.{_signature(payload)}"
 
 
@@ -108,9 +109,37 @@ def _authenticated(request: Request) -> bool:
     if not token or "." not in token:
         return False
     payload, signature = token.rsplit(".", 1)
-    return payload.startswith(f"{settings.admin_username}:") and hmac.compare_digest(
-        signature, _signature(payload)
+    try:
+        username, issued_at_value, nonce = payload.split(":", 2)
+        issued_at = int(issued_at_value)
+    except ValueError:
+        return False
+    age = int(time()) - issued_at
+    return (
+        username == settings.admin_username
+        and bool(nonce)
+        and 0 <= age <= settings.admin_session_ttl_seconds
+        and hmac.compare_digest(signature, _signature(payload))
     )
+
+
+def _csrf_token(request: Request) -> str:
+    session_token = request.cookies.get("mafportal_admin", "")
+    return _signature(f"csrf:{session_token}") if session_token else ""
+
+
+def _csrf_input(request: Request) -> str:
+    return f'<input type="hidden" name="csrf_token" value="{_escape(_csrf_token(request))}">'
+
+
+def _valid_csrf(request: Request, form: Any) -> bool:
+    supplied = str(form.get("csrf_token", ""))
+    expected = _csrf_token(request)
+    return bool(expected) and hmac.compare_digest(supplied, expected)
+
+
+def _csrf_error() -> HTMLResponse:
+    return HTMLResponse("Invalid or missing CSRF token", status_code=403)
 
 
 def _redirect_login() -> RedirectResponse:
@@ -177,15 +206,28 @@ async def admin_sign_in(request: Request) -> HTMLResponse | RedirectResponse:
         str(form.get("password", "")), settings.admin_password
     ):
         response = RedirectResponse("/admin/", status_code=303)
-        response.set_cookie("mafportal_admin", _session_token(), httponly=True, samesite="lax")
+        response.set_cookie(
+            "mafportal_admin",
+            _session_token(),
+            httponly=True,
+            max_age=settings.admin_session_ttl_seconds,
+            path="/admin",
+            samesite="lax",
+            secure=settings.admin_cookie_secure,
+        )
         return response
     return _login_page("Invalid username or password")
 
 
-@router.post("/logout")
-async def admin_logout() -> RedirectResponse:
+@router.post("/logout", response_model=None)
+async def admin_logout(request: Request) -> RedirectResponse | HTMLResponse:
+    if not _authenticated(request):
+        return _redirect_login()
+    form = await request.form()
+    if not _valid_csrf(request, form):
+        return _csrf_error()
     response = RedirectResponse("/admin", status_code=303)
-    response.delete_cookie("mafportal_admin")
+    response.delete_cookie("mafportal_admin", path="/admin")
     return response
 
 
@@ -202,15 +244,18 @@ async def admin_dashboard(request: Request) -> HTMLResponse | RedirectResponse:
             table_name, _ = resource
             count = db.execute(text(f'SELECT COUNT(*) FROM "{table_name}"')).scalar_one()
             cards.append(f'<a class="panel resource" href="/admin/{_escape(slug)}"><strong>{count}</strong>{_escape(label)}</a>')
-    content = '<header><h2>Admin dashboard</h2><form method="post" action="/admin/logout"><button class="quiet">Sign out</button></form></header>'
+    content = f'<header><h2>Admin dashboard</h2><form method="post" action="/admin/logout">{_csrf_input(request)}<button class="quiet">Sign out</button></form></header>'
     content += '<p class="muted">Legacy resources are grouped below. Select a resource to manage its records.</p><div class="grid">' + "".join(cards) + "</div>"
     return HTMLResponse(_layout("Dashboard", content))
 
 
-@router.get("/confirm_user_to_club/{club_id}/{user_id}")
-async def confirm_user_to_club(request: Request, club_id: int, user_id: int) -> RedirectResponse:
+@router.post("/confirm_user_to_club/{club_id}/{user_id}", response_model=None)
+async def confirm_user_to_club(request: Request, club_id: int, user_id: int) -> RedirectResponse | HTMLResponse:
     if not _authenticated(request):
         return _redirect_login()
+    form = await request.form()
+    if not _valid_csrf(request, form):
+        return _csrf_error()
     with SessionLocal() as db:
         db.execute(
             text("UPDATE club_user SET confirm = 1 WHERE club_id = :club_id AND user_id = :user_id"),
@@ -220,10 +265,13 @@ async def confirm_user_to_club(request: Request, club_id: int, user_id: int) -> 
     return RedirectResponse("/admin/club", status_code=303)
 
 
-@router.get("/cancel_user_to_club/{club_id}/{user_id}")
-async def cancel_user_to_club(request: Request, club_id: int, user_id: int) -> RedirectResponse:
+@router.post("/cancel_user_to_club/{club_id}/{user_id}", response_model=None)
+async def cancel_user_to_club(request: Request, club_id: int, user_id: int) -> RedirectResponse | HTMLResponse:
     if not _authenticated(request):
         return _redirect_login()
+    form = await request.form()
+    if not _valid_csrf(request, form):
+        return _csrf_error()
     with SessionLocal() as db:
         db.execute(
             text("DELETE FROM club_user WHERE club_id = :club_id AND user_id = :user_id"),
@@ -474,7 +522,7 @@ async def admin_resource(request: Request, slug: str) -> HTMLResponse | Redirect
             for column in visible
         )
         item_id = row.get("id")
-        delete_action = "" if slug == "user" else f'<form method="post" action="/admin/{_escape(slug)}/{item_id}/delete"><button type="submit">Delete</button></form>'
+        delete_action = "" if slug == "user" else f'<form method="post" action="/admin/{_escape(slug)}/{item_id}/delete">{_csrf_input(request)}<button type="submit">Delete</button></form>'
         actions = f'<td class="actions"><a class="button quiet" href="/admin/{_escape(slug)}/{item_id}/edit">Edit</a>{delete_action}</td>' if item_id is not None else ""
         body.append(f"<tr>{cells}{actions}</tr>")
     pagination = "" if page_count == 1 else '<div class="pagination">' + "".join(f'<a class="page-link{" current" if number == page else ""}" href="?page={number}">{number}</a>' for number in range(1, page_count + 1)) + "</div>"
@@ -489,6 +537,8 @@ async def _save(request: Request, slug: str, item_id: int | None = None) -> Redi
     table_name, label = resource
     columns = [column for column in _table_info(table_name) if column["name"] not in {"id", "created_at", "updated_at", "deleted_at"}]
     form = await request.form()
+    if not _valid_csrf(request, form):
+        return _csrf_error()
     table = Table(table_name, MetaData(), autoload_with=engine)
     with SessionLocal() as db:
         current = db.execute(select(table).where(table.c.id == item_id)).mappings().first() if item_id else None
@@ -566,7 +616,7 @@ async def admin_create_form(request: Request, slug: str) -> HTMLResponse | Redir
         return HTMLResponse("Resource not found", status_code=404)
     fields = [column for column in _table_info(resource[0]) if column["name"] not in {"id", "created_at", "updated_at", "deleted_at"}]
     password = '<label>Password<input type="password" name="password" autocomplete="new-password"></label>' if slug == "user" else ""
-    content = f'<header><h2>Add { _escape(resource[1]) }</h2><a class="button quiet" href="/admin/{_escape(slug)}">Back</a></header><section class="panel"><form class="fields" enctype="multipart/form-data" method="post" action="/admin/{_escape(slug)}/create">{"".join(_input(column, slug=slug) for column in fields)}{_page_extra_fields() if slug == "page" else ""}{_relationship_fields(slug)}{password}<div class="wide"><button type="submit">Create record</button></div></form></section>'
+    content = f'<header><h2>Add { _escape(resource[1]) }</h2><a class="button quiet" href="/admin/{_escape(slug)}">Back</a></header><section class="panel"><form class="fields" enctype="multipart/form-data" method="post" action="/admin/{_escape(slug)}/create">{_csrf_input(request)}{"".join(_input(column, slug=slug) for column in fields)}{_page_extra_fields() if slug == "page" else ""}{_relationship_fields(slug)}{password}<div class="wide"><button type="submit">Create record</button></div></form></section>'
     return HTMLResponse(_layout("Add record", content))
 
 
@@ -597,7 +647,7 @@ async def admin_edit_form(request: Request, slug: str, item_id: int) -> HTMLResp
         gallery_page = 1
     password = '<label>Password<input type="password" name="password" autocomplete="new-password"><span class="muted">Leave blank to keep the current password.</span></label>' if slug == "user" else ""
     relationship_values = _relationship_values(slug, item_id)
-    content = f'<header><h2>Edit { _escape(label) }</h2><a class="button quiet" href="/admin/{_escape(slug)}">Back</a></header><section class="panel"><form class="fields" enctype="multipart/form-data" method="post" action="/admin/{_escape(slug)}/{item_id}/edit">{"".join(_input(column, row[column["name"]], slug=slug, gallery_page=gallery_page) for column in fields)}{_page_extra_fields(_page_extras(row.get("extras"))) if slug == "page" else ""}{_relationship_fields(slug, relationship_values)}{password}<div class="wide"><button type="submit">Save changes</button></div></form></section>'
+    content = f'<header><h2>Edit { _escape(label) }</h2><a class="button quiet" href="/admin/{_escape(slug)}">Back</a></header><section class="panel"><form class="fields" enctype="multipart/form-data" method="post" action="/admin/{_escape(slug)}/{item_id}/edit">{_csrf_input(request)}{"".join(_input(column, row[column["name"]], slug=slug, gallery_page=gallery_page) for column in fields)}{_page_extra_fields(_page_extras(row.get("extras"))) if slug == "page" else ""}{_relationship_fields(slug, relationship_values)}{password}<div class="wide"><button type="submit">Save changes</button></div></form></section>'
     return HTMLResponse(_layout("Edit record", content))
 
 
@@ -612,6 +662,9 @@ async def admin_edit(request: Request, slug: str, item_id: int) -> RedirectRespo
 async def admin_delete(request: Request, slug: str, item_id: int) -> RedirectResponse | HTMLResponse:
     if not _authenticated(request):
         return _redirect_login()
+    form = await request.form()
+    if not _valid_csrf(request, form):
+        return _csrf_error()
     resource = _resource(slug)
     if resource is None:
         return HTMLResponse("Resource not found", status_code=404)
