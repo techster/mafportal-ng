@@ -4,7 +4,7 @@ MAF Portal is a FastAPI backend and Next.js frontend backed by the retained
 SQLite database at `database/database.sqlite`.
 
 For a minimal DigitalOcean production deployment with one Droplet and Spaces,
-see [DEPLOY_DIGITALOCEAN.md](DEPLOY_DIGITALOCEAN.md).
+see [hosting_digitalocean.md](hosting_digitalocean.md).
 
 ## Backend
 

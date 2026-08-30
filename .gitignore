@@ -28,5 +28,4 @@ bower_components/
 test-results/
 playwright-report/
 tsconfig.tsbuildinfo
-DEPLOY_DIGITALOCEAN.md
 secrets.md
