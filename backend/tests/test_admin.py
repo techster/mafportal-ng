@@ -1,7 +1,9 @@
 import json
+import re
 
 from fastapi.testclient import TestClient
 
+import app.admin as admin_module
 from app.admin import _gallery_images, _gallery_preview, _image_preview, _image_url
 from app.main import app
 
@@ -30,6 +32,82 @@ def test_admin_login_and_dashboard() -> None:
     assert dashboard.status_code == 200
     assert "Admin dashboard" in dashboard.text
     assert "/admin/tournament" in dashboard.text
+
+
+def test_admin_rejects_invalid_credentials_without_setting_session() -> None:
+    response = TestClient(app).post(
+        "/admin/login",
+        data={"username": "wrong@example.com", "password": "wrong"},
+        follow_redirects=False,
+    )
+
+    assert response.status_code == 200
+    assert "Invalid username or password" in response.text
+    assert "mafportal_admin" not in response.cookies
+
+
+def test_admin_session_cookie_and_logout_csrf() -> None:
+    session = TestClient(app)
+    login = session.post(
+        "/admin/login",
+        data={"username": "mafportaladmin@gmail.com", "password": "admin"},
+        follow_redirects=False,
+    )
+
+    cookie = login.headers["set-cookie"].lower()
+    assert "httponly" in cookie
+    assert "max-age=28800" in cookie
+    assert "path=/admin" in cookie
+    assert "samesite=lax" in cookie
+
+    dashboard = session.get("/admin/")
+    csrf_match = re.search(r'name="csrf_token" value="([^"]+)"', dashboard.text)
+    assert csrf_match is not None
+    assert session.post("/admin/logout", data={}, follow_redirects=False).status_code == 403
+
+    logout = session.post(
+        "/admin/logout",
+        data={"csrf_token": csrf_match.group(1)},
+        follow_redirects=False,
+    )
+    assert logout.status_code == 303
+    assert logout.headers["location"] == "/admin"
+
+
+def test_expired_admin_session_is_rejected(monkeypatch) -> None:
+    monkeypatch.setattr(admin_module, "time", lambda: 1_000)
+    token = admin_module._session_token()
+    monkeypatch.setattr(
+        admin_module,
+        "time",
+        lambda: 1_000 + admin_module.settings.admin_session_ttl_seconds + 1,
+    )
+
+    response = TestClient(app).get("/admin/", cookies={"mafportal_admin": token})
+
+    assert response.status_code == 200
+    assert "Admin sign in" in response.text
+
+
+def test_club_membership_mutations_reject_get_requests() -> None:
+    session = TestClient(app)
+
+    assert session.get("/admin/confirm_user_to_club/1/1").status_code == 405
+    assert session.get("/admin/cancel_user_to_club/1/1").status_code == 405
+
+
+def test_admin_mutations_reject_missing_or_tampered_csrf() -> None:
+    session = TestClient(app)
+    session.post(
+        "/admin/login",
+        data={"username": "mafportaladmin@gmail.com", "password": "admin"},
+    )
+
+    assert session.post("/admin/tournament/1/delete", data={}).status_code == 403
+    assert session.post(
+        "/admin/tournament/create",
+        data={"csrf_token": "tampered"},
+    ).status_code == 403
 
 
 def test_admin_lists_legacy_tournament_resource() -> None:

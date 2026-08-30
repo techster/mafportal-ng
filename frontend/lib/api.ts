@@ -1,11 +1,13 @@
 const API_URL = process.env.MAFPORTAL_API_URL ?? "http://127.0.0.1:8001";
 export const LEGACY_URL = process.env.MAFPORTAL_LEGACY_URL ?? "http://127.0.0.1:8001";
-const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL ?? `${LEGACY_URL}/assets`;
+const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL ?? "/assets";
 
 const WORLD_CUP_IMAGE_MAP: Record<string, string> = {
   "_hero_background_worldcup.jpg": "tournaments/bd3b01bff56c259a1017ece953709e90.jpg",
   "8th_mwc.jpg": "tournaments/2b88bac505979dc0783d84b38ce92a07.jpg",
+  "maf_history_8th.jpg": "tournaments/2b88bac505979dc0783d84b38ce92a07.jpg",
   "vegas-maf-7th.jpeg": "tournaments/c024dd500ab62471b6e11ec484bf499d.jpg",
+  "7th_mwc_winner.jpg": "tournaments/c024dd500ab62471b6e11ec484bf499d.jpg",
   "6th_mwc.png": "tournaments/bec0ae638374386c9c62796b13044d18.jpg",
   "6th_mwc_winner.JPG": "tournaments/bec0ae638374386c9c62796b13044d18.jpg",
   "5th_mwc.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
@@ -14,14 +16,50 @@ const WORLD_CUP_IMAGE_MAP: Record<string, string> = {
   "3rd_mwc.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
   "2nd_mwc.jpg": "galleries/mwc2012/7d11a7003f4204176eee90fe30fa6597.jpg",
   "1st_mwc.jpg": "galleries/mwc2012/20324e6382669d0f9b40714bf9b32011.jpg",
+  "mwc2013armen.jpeg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "mwc2012_1.jpeg": "galleries/mwc2012/20324e6382669d0f9b40714bf9b32011.jpg",
+  "mwc2014winners.jpg": "galleries/wmc2014/5b515580bf405a96c19d84d7c58bf5bd.jpg",
+  "mwc2015winner.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "mwc2014don.jpg": "galleries/wmc2014/5b515580bf405a96c19d84d7c58bf5bd.jpg",
+  "mwc2015don.jpg": "galleries/wmc2014/5b515580bf405a96c19d84d7c58bf5bd.jpg",
+  "mwc2013_5.jpeg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "mwc2012_10.jpeg": "galleries/mwc2012/20324e6382669d0f9b40714bf9b32011.jpg",
+  "mwc2012_2b.jpeg": "galleries/mwc2012/7d11a7003f4204176eee90fe30fa6597.jpg",
+  "mwc2012_4.jpeg": "galleries/mwc2012/20324e6382669d0f9b40714bf9b32011.jpg",
+  "mwc2012_7.jpeg": "galleries/mwc2012/7d11a7003f4204176eee90fe30fa6597.jpg",
+  "mwc2012_8.jpeg": "galleries/mwc2012/20324e6382669d0f9b40714bf9b32011.jpg",
+  "mwc2012_9.jpeg": "galleries/mwc2012/7d11a7003f4204176eee90fe30fa6597.jpg",
+  "divider.png": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_01.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_02.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_03.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_04.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_05.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_06.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_07.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+  "slider_08.jpg": "galleries/wmc2014/aa00d2a0477634f1e3c9866d917e8e19.jpg",
+};
+
+const GAME_RULES_IMAGE_MAP: Record<string, string> = {
+  "thegame_maf.jpg": "images/Gatsby Mafia Game.jpg",
+  "thegame_night.jpg": "images/night_maf.jpeg",
+  "thegame_roles.jpg": "images/choose_maf.jpeg",
+  "thegame_voting.jpg": "images/vote_maf.jpeg",
+  "vote_maf.jpeg": "images/mod_maf.jpeg",
 };
 
 export function assetUrl(value: string | null | undefined): string | undefined {
   if (!value) return undefined;
   if (value.startsWith("http://") || value.startsWith("https://")) return value;
   const path = value.replace(/^\/(?:en|ru)(?=\/uploads\/)/i, "").replace(/^\//, "");
+  if (path.startsWith("assets/")) return `/${path}`;
+  const gameRulesFile = path.match(/^uploads\/maf-world-cup-history\/img\/rules\/([^/]+)$/i)?.[1];
+  if (gameRulesFile && GAME_RULES_IMAGE_MAP[gameRulesFile]) return `${MEDIA_URL.replace(/\/$/, "")}/${GAME_RULES_IMAGE_MAP[gameRulesFile]}`;
   const worldCupFile = path.match(/^uploads\/maf-world-cup-history\/img\/(?:history\/)?([^/]+)$/i)?.[1];
   if (worldCupFile && WORLD_CUP_IMAGE_MAP[worldCupFile]) return `${MEDIA_URL.replace(/\/$/, "")}/${WORLD_CUP_IMAGE_MAP[worldCupFile]}`;
+  if (path.startsWith("uploads/admin/country/")) return `${MEDIA_URL.replace(/\/$/, "")}/country/${path.slice(22)}`;
+  if (path.startsWith("uploads/admin/clubs/")) return `${MEDIA_URL.replace(/\/$/, "")}/clubs/${path.slice(20)}`;
+  if (path.startsWith("uploads/clubs/")) return `${MEDIA_URL.replace(/\/$/, "")}/clubs/${path.slice(14)}`;
   if (path.startsWith("images/uploads/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/${path.slice(15)}`;
   if (path.startsWith("images/avatars/")) return `${MEDIA_URL.replace(/\/$/, "")}/avatar/${path.slice(15)}`;
   if (path.startsWith("images/system/")) return `${MEDIA_URL.replace(/\/$/, "")}/system/${path.slice(14)}`;
@@ -33,7 +71,7 @@ export function assetUrl(value: string | null | undefined): string | undefined {
   if (path.startsWith("build/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/build/${path.slice(6)}`;
   if (path.startsWith("galleries/")) return `${MEDIA_URL.replace(/\/$/, "")}/${path}`;
   if (path.startsWith("tournaments/")) return `${MEDIA_URL.replace(/\/$/, "")}/${path}`;
-  if (path.startsWith("admin/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/admin/${path}`;
+  if (path.startsWith("admin/")) return `${MEDIA_URL.replace(/\/$/, "")}/images/${path}`;
   return `${LEGACY_URL}/${path}`;
 }
 
